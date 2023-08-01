@@ -37,6 +37,13 @@
 - Some [experience with React](https://kcd.im/beginner-react)
 - Some [experience with Node.js](https://nodejs.dev/en/learn)
 
+## Pre-workshop Resources
+
+Here are some resources you can read before taking the workshop to get you up to
+speed on some of the tools and concepts we'll be covering:
+
+- TODO: add resources
+
 ## System Requirements
 
 - [git][git] v2.13 or greater
@@ -133,7 +140,7 @@ The purpose of the exercise is **not** for you to work through all the material.
 It's intended to get your brain thinking about the right questions to ask me as
 _I_ walk through the material.
 
-## Helpful Emoji 🐨 🦺 💰 📝 🦉 📜 💣 💪 🏁 👨‍💼 🚨
+## Helpful Emoji 🐨 🦺 💰 📝 🦉 📜 💣 💪 🏁 👨‍💼 🚨 🧝‍♀️
 
 Each exercise has comments in it to help you get through the exercise. These fun
 emoji characters are here to help you.
