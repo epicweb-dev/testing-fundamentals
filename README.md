@@ -79,7 +79,7 @@ network connection before running the setup and grab a snack.
 Follow these steps to get this set up:
 
 ```sh nonumber
-git clone --depth 1 https://github.com/epicweb-dev/workshop-template.git
+git clone --depth 1 https://github.com/epicweb-dev/testing-fundamentals.git
 cd workshop-template
 npm run setup
 ```

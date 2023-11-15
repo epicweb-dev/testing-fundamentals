@@ -54,7 +54,6 @@ for (const app of [...solutionApps, ...exampleApps]) {
 		shell: true,
 		windowsHide: false,
 		env: {
-			OPEN_PLAYWRIGHT_REPORT: 'never',
 			...process.env,
 			PORT: app.dev.portNumber,
 		},

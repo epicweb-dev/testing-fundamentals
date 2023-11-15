@@ -1,8 +1,5 @@
-import fs from 'fs'
 import path from 'node:path'
-import { spawn } from 'child_process'
 import fsExtra from 'fs-extra'
-import { $ } from 'execa'
 import {
 	getApps,
 	isProblemApp,
@@ -18,21 +15,6 @@ const uniqueApps = allApps.filter(
 	(a, index) => allApps.findIndex(b => b.fullPath === a.fullPath) === index,
 )
 const problemApps = allApps.filter(isProblemApp)
-
-if (!process.env.SKIP_PLAYWRIGHT) {
-	console.log(
-		'🎭 installing playwright for testing... This may require sudo (or admin) privileges and may ask for your password.',
-	)
-	try {
-		await $({
-			all: true,
-		})`npx playwright install chromium --with-deps`
-		console.log('✅ playwright installed')
-	} catch (playwrightErrorResult) {
-		console.log(playwrightErrorResult.all)
-		throw new Error('❌  playwright install failed')
-	}
-}
 
 if (!process.env.SKIP_PLAYGROUND) {
 	const firstProblemApp = problemApps[0]
