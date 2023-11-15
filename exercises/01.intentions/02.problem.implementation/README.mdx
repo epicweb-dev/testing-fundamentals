@@ -1,0 +1,28 @@
+# Implementation
+
+**We don't write tests to pass, we write them to fail**. Because every failed test is one unexpected behavior we caught, and one bug less for our users to experience.
+
+> Fail-first approach is also prominent in Test-Driven Development (TDD), where you write tests for your code, watch them all fail, and slowly make your way up to them passing.
+
+Let's run our `greet.js` file now and see what happens.
+
+```sh
+node greet.js
+```
+
+Oh! Suddenly, the process exits with an error:
+
+```
+Error: Expected message to equal to "Hello, John!" but got "Howdy, John!"
+```
+
+This is our test throwing an error to let us know that something doesn't seem right. If you take a closer look at the error message, you can spot that the greeting string returned from the `greet` function is different from what we expected. That's precisely why we need tests—to tell us _when_ and _what_ goes wrong.
+
+In this exercise, you have to fix this problem and make the test pass again (have the `node greet.js` exit without errors).
+
+---
+
+## INTERNAL NOTES
+
+- Here, I'm intentionally giving the student an ambiguous state of the test. Both the actual and the expected greeting strings seem legit. This is what often happens in real life—it's not so clear where's the problem. I want them to explore and _make mistakes_.
+- If the student adjusts the _expected string_ (in test), that's a mistake. I will use that mistake to teach them that they should trust tests, not the implementation. _Because the implementation may change but the intention stays the same_. I will also talk about the dangers of assuming the expected behavior from the implementation and how automated tests, partially, document the code!

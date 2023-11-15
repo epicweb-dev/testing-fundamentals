@@ -1,0 +1,36 @@
+# Implementation
+
+The first thing I do whenever a test fails, I look at the _assertions_ (comparisons between the actual and the expected) it makes.
+
+In the case of our `greet` function, when given the name `"John"` I expect it to return the `"Hello, John!"` string.
+
+<CodeFile file="greet.js" range="5-9" highlight="7" />
+
+This is a crucial piece of information that lets me know what's the _intention_ here.
+
+Next, I jump to the `greet` function and notice that it returns `Howdy` instead of `Hello`. That is a bug and I fix it:
+
+```js remove=2 add=3
+function greet(name) {
+	return `Howdy, ${name}!`
+	return `Hello, ${name}!`
+}
+```
+
+With the fix in place, I re-run the tests to see them pass! :tada:
+
+```sh
+node greet.js
+```
+
+## Intention vs Implementation
+
+You may be wondering why the right course of action here is to change the implementation and not just change the failing assertion in the test. In the end, how do we know that the issue isn't with the test, that it shouldn't be expecting `"Hello"` but `"Howdy"`?
+
+To that, I want to share a quote with you:
+
+<callout-info class="important">Implementations change but intentions stay the same.</callout-info>
+
+You write tests to cement the intentions you have. Deciphering those intentions from ther source code alone can proof challenging and, at times, dangerous. Remember that the code you are working with _may not have been written by you_. It could've been a colleague who's now on vacation, or have left the company long before you joined. But you have to debug and fix the code right now. For that, you have to know what was the intention behind that code.
+
+This is where automated tests can be a life-changing factor. They act as a partial documentation for the code, and make things like code refactoring (i.e. changing the implementation) _much_ easier.

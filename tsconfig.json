@@ -3,5 +3,18 @@
   "exclude": [
     "node_modules"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "exercises/01.intentions/01.problem.verify"
+    },
+    {
+      "path": "exercises/01.intentions/01.solution.verify"
+    },
+    {
+      "path": "exercises/01.intentions/02.problem.implementation"
+    },
+    {
+      "path": "exercises/01.intentions/02.solution.implementation"
+    }
+  ]
 }

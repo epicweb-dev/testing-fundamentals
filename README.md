@@ -1,7 +1,7 @@
 <div>
-  <h1 align="center"><a href="https://www.epicweb.dev/workshops">Workshop Title</a></h1>
+  <h1 align="center"><a href="https://www.epicweb.dev/workshops">Testing Fundamentals</a></h1>
   <strong>
-    Workshop tagline
+    Learn the fundamentals of automated testing in JavaScript.
   </strong>
   <p>
     Workshop summary
