@@ -1,3 +1,67 @@
 # Intentions
 
-Introduction to Basics.
+Any code you write has some intention behind it. To listen to a button click, to
+handle a response from the server, to apply styles when the user mouses over the
+element—there are thousands of things you want your application to do. And you
+use code to describe your intention in a language that the computer understands.
+
+**But how do we know that the code works as intended?** How do we catch those
+times when it doesn't, and how do we find out why?
+
+## Manual testing
+
+The most straightforward answer is _to use that code_.
+
+For example, if you have a `sum` function that adds any two given numbers, you can call it with some numbers and see what it returns:
+
+```js nonumber lines=2
+sum(2, 3)
+// 5
+```
+
+It seems to return a number. We compare that actual number (`5`) to what we expect to see (`5`) and
+conclude that it works correctly. Congratulations, you have just done _manual
+testing_! :tada:
+
+You took a piece of code, ran it, and validated the result. That is testing in a
+nutshell. The only problem being, you did that testing _in your head_. You have
+no tangible proof that the code actually works. It seems to work now but
+tomorrow your colleague merges a pull request that changes the code. Would it still work? Well, hopefully, they did some
+manual testing before merging...
+
+**"Hoping it works" isn't a reliable testing strategy.** And neither is manual
+testing. It may be relatively easy to do for a simple function like `sum` but real-world systems can have countless functions like that. All with
+a purpose. All equally important in the grand scheme of things. Manually
+checking every single one of those would take forever and, to make things worse,
+would be inefficient and prone to errors.
+
+We are humans and we make mistakes. As incredible as our brains are, we cannot
+be expected to keep a laser-sharp focus and run thousands of lines of code in
+our mind. If only there was something to help us with that kind of
+_computing_...
+
+## Automated testing
+
+Let's use computers and _automate_ this whole process!
+
+Conceptually, the steps we have to test the `sum` function remain the same:
+
+1. Pick a code to test (i.e. our `sum` function);
+1. Run the code with particular arguments;
+1. Check whether the actual result equals to the expected (indended) result.
+
+Here are the same steps (abstractly) represented in JavaScript:
+
+```js
+// Run the code and get the *actual* result.
+let result = code(...args)
+
+// Compare the actual and the expected results.
+if (result !== expected) {
+	// Alert us if the two results don't match
+	// as that likely means a bug in the code.
+	throw new Error(`Expected "${expected}" but got ${result}`)
+}
+```
+
+In this exercise, you will learn about the intentions, implementations, their relationship and how to automate testing by writing the most basic test.
