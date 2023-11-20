@@ -1,3 +1,27 @@
 # Test Structure
 
-Introduction to Test Structure.
+Now that we have the basic test written, let's iterate on it. See, no matter what we test, we will be repeating the same steps over and over:
+
+1. Execute the code;
+1. Compare the actual result with the expected result;
+1. Throw an error if those two don't match.
+
+In other words, every test follows _a predicatable structure_. And that's great! It means we can open any project and go to any test and follow that structure to help us navigate around and understand things. It also helps with writing tests because it gives us this framework on how to approach testing _anything_.
+
+---
+
+## Test phases
+
+The "Execute-Compare-Throw" loop is what our tests are doing conceptually but on the structural level, every test consists of the following _phases_:
+
+1. Setup (_optional_). Addressing any dependencies our code needs to run (e.g. side effects like a database connection or an HTTP request to the server).
+1. Actions. Using the tested code (e.g. calling the `sum` function with particular arguments).
+1. Assertions. Validating the intention (i.e. comparing the actual and the expected states of the code).
+
+In this exercise, you are going to refactor the existing automated test to reflect that structure.
+
+---
+
+## INTERNAL NOTES
+
+- Somehow, the "Setup-Actions-Assertions" structure isn't that well-defined. That'd odd. This is literally what any test on any level is. I've been using this structure for years but was surprised to find very little on it on the Internet. The closest thing I found was the [Arrange-Act-Assert pattern](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/). This article explains it well but everywhere else on the web this pattern is labeled as "unit test organization pattern". I disagree.

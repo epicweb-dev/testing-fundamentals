@@ -1,3 +1,89 @@
 # Assertions
 
-- Abstract repetitive checks into _assertion_ functions ("expect").
+Okay, let's apply that test structure to our test for the `greet` function.
+
+## Test structure
+
+First, let's take a look at what test phases we already have.
+
+### Setup
+
+We don't have any special setup to test the `greet` function. The setup phase is optional and you will often find it missing in unit tests (testing isolated pieces of code like we have over here).
+
+### Action
+
+Our action for this test is to call the `greet` function with the `'John'` string as the argument.
+
+<CodeFile file="greet.js" range="5" nocopy />
+
+### Assertion
+
+And our assertion is a simple `if` statement that compares the actual `message` with the message we expect to be returned (`'Hello, John!'`).
+
+<CodeFile file="greet.js" range="7-9" nocopy />
+
+## The problem
+
+Our assertion has two problems.
+
+First, it's _imperative_. We instruct the code _how_ to do things instead of declaring _what_ we want to do.
+
+Second, it's _repetitive_. This may not be as evident right now, but consider what happens if we have to test a new function called `congratulate`:
+
+```js filename=greet.js lines=11-15,18-22 nocopy
+function greet(name) {
+	return `Hello, ${name}!`
+}
+
+function congratulate(name) {
+	return `Congrats, ${name}!`
+}
+
+let message = greet('John')
+
+if (message !== 'Hello, John!') {
+	throw new Error(
+		`Expected message to equal to "Hello, John!" but got "${message}"`,
+	)
+}
+
+message = congratulate('Sarah')
+if (message !== 'Congrats, Sarah!') {
+	throw new Error(
+		`Expected message to equal to "Congrats, Sarah!" but got "${message}"`,
+	)
+}
+```
+
+It would be great to abstract that logic into a declarative function called `expect`. With that function, these two tests would look like this:
+
+```js lines=9-10
+function greet(name) {
+	return `Hello, ${name}!`
+}
+
+function congratulate(name) {
+	return `Congrats, ${name}!`
+}
+
+expect(greet('John')).toBe('Hello, John!')
+expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
+```
+
+<callout-info>
+	Preferring declarative APIs when testing often leads to more readable and
+	manageable tests.
+</callout-info>
+
+Your task right now is to implement this `expect` function and refactor the existing tests to use it. Feel free to use this outline for reference:
+
+```js
+function expect(actual) {
+	return {
+		toBe(expected) {
+			// Compare the actual to the expected
+			// and throw if they don't match.
+		},
+	}
+}
+```
