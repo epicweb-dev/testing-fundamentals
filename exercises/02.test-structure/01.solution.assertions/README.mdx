@@ -1,3 +1,13 @@
 # Assertions
 
-- Solution for assertions.
+First, I will move the existing `if` logic for assertions into the new `toBe` function returned from the `expect`.
+
+<CodeFile file="greet.js" range="12-20" highlight="15-17" />
+
+Then, refactor the existing tests to use the new `expect` function.
+
+<CodeFile file="greet.js" range="9-10" />
+
+Notice how much more human-friendly those assertions have become! Although a test is code that verifies another code, we still write them for ourselves and for our colleagues. We still write tests for humans. Preferring a more declarative style while doing so, such as our `expect` function, is one way to make sure those humans can get around faster and tackle failing tests more efficiently.
+
+Additionally, abstractions like `expect` help us maintain our testing suite by keeping all assetions in one place. Assertions reflect our expectations, and those will evolve and multiple as we keep testing our app. It's nice to know that whenever we want to check equality (`.toBe()`, `.toEqual()`), truthfulness (`.toBeTruthy()`), or errors (`.toThrow()`), we can always count on the same `expect()` function.
