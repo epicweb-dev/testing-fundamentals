@@ -1,4 +1,18 @@
 # Test files
 
-- Move our tests into a designated _test file_ (e.g.
-  "greet.test.js").
+Right now, we keep our tests in the same file as the code they verify. If someone imports `greet.js`, they will also import and run the tests, which is not something we want in production (we should be concerned with the tests, not our users).
+
+<callout-warning>This testing approach is called _in-source testing_ and can be handy when unit testing or prototyping but requires additional setup to be used properly. In this workshop, we will move away from it to a more common file-based approach.</callout-warning>
+
+A far more resilient strategy is to keep the tests separate from the source code. By doing so, we keep the source clean while also having freedom to structure and evolve the tests (e.g. split them by behavior, move them around, and delete them).
+
+There are multiple ways to structure test files. You can keep them next to the source files, or put them in a designated `test`/`__test__` directories. Those are stylistic choices, and as with any such choices, **consistency is the only thing that matters**.
+
+It is a good practice, however, to keep the association between the source code and the test file. Often, this is done by naming the test similar to the module it verifies and adding a `.test.js` or `.spec.js` suffix to it.
+
+```txt lines=2 nonumber
+├── greet.js
+└── greet.test.js
+```
+
+In this one, your task is to move the existing tests for the `greet.js` module to a standalone `greet.test.js` test file. Bonus points if you make the `test()` and `expect()` functions available _globally_ in the added `greet.test.js` file.
