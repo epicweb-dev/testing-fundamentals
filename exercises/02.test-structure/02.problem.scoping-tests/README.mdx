@@ -7,10 +7,12 @@ node greet.js
 ```
 
 ```
-# TODO: OUTPUT HERE
+Error: Expected Hello, ${name}! to equal to Hello, John!
 ```
 
-We can see a failing assertion but it's not immediately clear what the problematic code is. Is it a bug in the `greet` function or in the `goodbye`? It may take a minute to find the culprit by looking around, we only have two test cases, after all. But what will we do once we have three, thirty, three hundred tests? Suddenly, that minute becomes half an hour, or an hour, or a whole day. So much time wasted on _debugging tests_ instead of _fixing the issue_.
+We can see a failing assertion but never points us to the problematic code or even test. We can likely guess the issue is with the `greet()` function based on the expected string but that assumption is only viable because we have just two tests at the moment. But what will happen once we have three, thirty, three hundred tests? Suddenly, we can't assume anymore and have to spend a lot of time trying to _debug the test_ instead of _fixing the issue_.
+
+TODO: Mention that since assertions are in the same scope, if the first throws, the second _will never get run_.
 
 Let's address this shortcoming by giving each test its own room to live in. Because just as we have benefited from a declarative `expect()` abstraction, we can save ourselves hours of confusion simply by providing a more declarative `test()` API for our tests:
 
@@ -24,7 +26,7 @@ test('second test', () => {
 })
 ```
 
-... Mention that naming tests is important. I think linking to "what makes a great test name" tip is great in the FINISHED.
+> Giving each test a short, descriptive title will greatly improve its discoverability! TODO: Link to a tip "5 Tips for Naming Your Tests".
 
 ```
 ✗ first test
