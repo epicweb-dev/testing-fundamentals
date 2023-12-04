@@ -18,5 +18,5 @@ function test(title, callback) {
 	}
 }
 
-Reflect.set(globalThis, 'expect', expect)
-Reflect.set(globalThis, 'test', test)
+globalThis.expect = expect
+globalThis.test = test
