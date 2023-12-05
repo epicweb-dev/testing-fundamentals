@@ -1,7 +1,32 @@
 # Hooks
 
-- On testing hooks ("before*" and "after*").
+Some time has passed, and our dear Peter the Project Manager has come up with an idea to include the website's name into the greeting message for the user. That sounds easy enough, and so we change our `greet()` function to reflect the change:
+
+<CodeFile file="greet.js" range="1-3" highlight="2" />
+
+In fact, this is such a small but meaningful change that we are eager to merge this straight awat! But before we do, we run those automated tests and. . . something unexpected happens:
+
+```
+✗ returns a greeting message for the given name
+ReferenceError: document is not defined
+```
+
+But how can this be? 😱
+
+In this case, the test is failing not because we violate the intention behind the tested code but because we have a _poorly written test_.
+
+<callout-success class="important">A good test only fails when the intention behind the system is breached.</callout-success>
+
+- `greet()` refers to `document`, which is _browser_ global but not Node.js.
+- The issue isn't in the environment, it's in what side-effects the tested code has. Accessing a global is a side effect. Making a request or connecting to a database—are side effects too. In testing, we handle such side effects with _hooks_.
 
 ---
 
-...
+In this exercise, you'd have to implement _two_ new global functions in `setup.js`:
+
+- `beforeAll()`, which runs a given callback before all tests;
+- `afterAll()`, which runs a given callback after all tests.
+
+Once you do, add them to the `greet.test.js` to introduce a `document` global object that our `greet()` function depends on. And, as always, the tests shall pass.
+
+<callout-info>You can treat the process `exit` event as the indicator that all tests are finished.</callout-info>
