@@ -1,5 +1,7 @@
 export function greet(name) {
-	return `Hello, ${name}! Welcome to "${document.title}"!`
+	const weekday = new Date().toLocaleDateString(undefined, { weekday: 'long' })
+
+	return `Hello, ${name}! Happy, ${weekday}.`
 }
 
 export function congratulate(name) {

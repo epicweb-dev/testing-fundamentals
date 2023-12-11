@@ -1,32 +1,53 @@
 # Hooks
 
-Some time has passed, and our dear Peter the Project Manager has come up with an idea to include the website's name into the greeting message for the user. That sounds easy enough, and so we change our `greet()` function to reflect the change:
+One day, our Peter the Project Manager comes to us with a great idea to improve the app. He suggests we wish our users a happy day as a part of the greeting message (a bit of kindness goes a long way). That sounds easy enough, and so we change the `greet()` function to reflect that suggestion:
 
-<CodeFile file="greet.js" range="1-3" highlight="2" />
+<CodeFile file="greet.js" range="1-5" highlight="4" />
 
-In fact, this is such a small but meaningful change that we are eager to merge this straight awat! But before we do, we run those automated tests and. . . something unexpected happens:
+Since the intention behind the code has changed (now it also includes the day of the week), we should adjust the relevant tests to capture that:
 
+<CodeFile file="greet.test.js" range="1-5" highlight="4" />
+
+The issue with this test is that it will only pass on Mondays! That won't do. We need a _deterministic_ test, no matter where or when we run it. To fix this, let's first understand why this happens.
+
+Our `greet()` function constructs a `Date` to extract a weekday from it. This is a perfectly valid logic but it's also a _side effect_. The values that `Date` returns are not predictable—they change based on, well, the current date! We need to account for that change in our test by, somehow, _freezing_ the current date and making it return the same value on every test run.
+
+> TODO A note here that `Date` is just an example. You have to handle side effects in your tests in general.
+
+To handle side effects such as this one, tests often have the concept of "hooks". Hooks are functions that allow you to execute arbitrary code before, during, and after the test run. The purpose of hooks is to help you prepare the environment that runs your tested code.
+
+In this exercise, you'd have to implement _two_ new global functions (hooks) in `setup.js`:
+
+- `beforeAll()`, which accepts a callback argument and runs it before all tests;
+- `afterAll()`, which accepts a callback argument and runs it after the tests are done.
+
+<callout-info>You can treat the process `exit` event as the indicator that all tests are done.</callout-info>
+
+Once you do, add a `beforeAll()` hook to the `greet.test.js` to patch the `globalThis.Date` constructor and return a fixed date from it. Make sure to undo the patch after the tests to keep the test environment clean. And, of course, make sure the tests are passing.
+
+Feel free to use the following snippet to mock the `Date` constructor:
+
+```js nocopy
+const OriginalDate = globalThis.Date
+
+beforeAll(() => {
+	globalThis.Date = function () {
+		return new OriginalDate('2024-01-01')
+	}
+})
 ```
-✗ returns a greeting message for the given name
-ReferenceError: document is not defined
-```
-
-But how can this be? 😱
-
-In this case, the test is failing not because we violate the intention behind the tested code but because we have a _poorly written test_.
-
-<callout-success class="important">A good test only fails when the intention behind the system is breached.</callout-success>
-
-- `greet()` refers to `document`, which is _browser_ global but not Node.js.
-- The issue isn't in the environment, it's in what side-effects the tested code has. Accessing a global is a side effect. Making a request or connecting to a database—are side effects too. In testing, we handle such side effects with _hooks_.
 
 ---
 
-In this exercise, you'd have to implement _two_ new global functions in `setup.js`:
+## INTERNAL NOTES
 
-- `beforeAll()`, which runs a given callback before all tests;
-- `afterAll()`, which runs a given callback after all tests.
+<callout-success class="important">A good test only fails when the intention behind the system is breached.</callout-success>
 
-Once you do, add them to the `greet.test.js` to introduce a `document` global object that our `greet()` function depends on. And, as always, the tests shall pass.
+- HTTP request.
+- Connecting to a datbase.
+- Relying on globals.
+- **Timers**.
 
-<callout-info>You can treat the process `exit` event as the indicator that all tests are finished.</callout-info>
+```
+
+```

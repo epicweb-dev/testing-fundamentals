@@ -14,8 +14,12 @@ And similar to the `test()` and `expect()` functions, I expose the `beforeAll()`
 
 <CodeFile file="setup.js" range="33-34" />
 
-Then, I go to the `greet.test.js` and add the `beforeAll()` hook that sets a global `document` property to equal an object with a `title` property. I also add the `afterAll()` hook to clean up any side-effects this test file introduces (i.e. delete the global `document` property).
+Then, I go to the `greet.test.js` and add the `beforeAll()` hook that patches the global `Date` constructor and uses the stored `OriginalDate` class to create a fixed date.
 
-<CodeFile file="greet.test.js" range="1-15" highlight="4-6,10,14" />
+<CodeFile file="greet.test.js" range="3-9" highlight="3,6-8" />
 
-<callout-success>Remember the rule of clean hooks: have a cleanup for each side-effect in your setup (e.g. spawn a server → close the server; introduce a global → remove the global).</callout-success>
+Similarly, I make sure to clean up this patch in the `afterAll()` hook:
+
+<CodeFile file="greet.test.js" range="11-13" highlight="12" />
+
+<callout-success>Remember the rule of clean hooks: have a cleanup for each side effect in your setup (e.g. spawn a server → close the server; patch a global → restore the global).</callout-success>
