@@ -1,3 +1,36 @@
 # Await
 
-This is how to await async stuff!
+I will start by making the `test()` function in `setup.js` asynchronous.
+
+<CodeFile file="setup.js" range="11-12" highlight="11" />
+
+This will allow me to await the `callback()` if it happens to be `async` too.
+
+<CodeFile file="setup.js" range="11-19" highlight="13" />
+
+If I run the tests now, I can correctly see the assertion on `greetByResponse()` failing the relevant test:
+
+```txt nocopy nonumber lines=3-4
+✓ returns a greeting message for the given name
+✓ returns a congratulation message for the given name
+✗ returns a greeting message for the given user response
+Error: Expected Hello, undefined! Happy, Monday. to equal to Hello, Patrick! Happy, Monday.
+```
+
+The rejected assertion message seems to include `undefined` instead of the user's first name. Maybe the way we access the name on the user response is incorrect? I jump to the `greetByResponse()` implementation and, indeed, I can see we are accessing `user.name` instead of `user.firstName`.
+
+```js remove=3 add=4
+export async function greetByResponse(response) {
+	const user = await response.json()
+	return greet(user.name)
+	return greet(user.firstName)
+}
+```
+
+With the fix in place, I re-run the tests to see them all pass:
+
+```txt nocopy nonumber
+✓ returns a greeting message for the given name
+✓ returns a congratulation message for the given name
+✓ returns a greeting message for the given user response
+```
