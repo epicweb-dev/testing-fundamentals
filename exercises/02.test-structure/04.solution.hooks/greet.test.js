@@ -1,15 +1,15 @@
 import { greet, congratulate } from './greet.js'
 
-const OriginalDate = globalThis.Date
+const DateProxy = Proxy.revocable(globalThis.Date, {
+	construct: (Date) => new Date('2024-01-01')
+})
 
 beforeAll(() => {
-	globalThis.Date = function() {
-		return new OriginalDate('2024-01-01')
-	}
+	globalThis.Date = DateProxy.proxy
 })
 
 afterAll(() => {
-	globalThis.Date = OriginalDate
+	DateProxy.revoke()
 })
 
 test('returns a greeting message for the given name', () => {
