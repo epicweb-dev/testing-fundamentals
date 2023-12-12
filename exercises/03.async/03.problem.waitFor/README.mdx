@@ -1,0 +1,34 @@
+# Awaiting side effects
+
+Sometimes our application has asynchronous behaviors that are not related to the intention we are testing but still have to be accounted for anyway. For example:
+
+- Waiting for an HTTP request to finish before asserting the UI;
+- Waiting for retires and timers on the page;
+- ...
+
+Taking those side effects into account and handling them properly is the key to eliminating test flakiness. In the end, we strive toward _reliable tests_, and side effects is the number one reason that makes them unpredictable.
+
+- TODO Code example with the problem.
+- It seems difficult because those side effects are usually not exposed in the test. But that's a GOOD THING! You shouldn't be touching them. Those are implementation details. Instead, you should be _awaiting_ the proper state of your tested system.
+
+```js
+test('', async () => {
+  runCode()
+
+  await waitFor(() => {
+    expect(...).toBe(...)
+  })
+})
+```
+
+```js
+function Component() {
+	function closure() {
+		// side effect is here.
+		// but it has effect on the state
+		// of Component.
+	}
+
+	// some result.
+}
+```
