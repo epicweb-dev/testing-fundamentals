@@ -1,3 +1,46 @@
 # Promise rejections
 
-- Learn how to test promise _rejections_. Useful whenever things are supposed to fail (e.g. validation logic).
+In our `greetByResponse()` function, let's add a check that the given `response` is defined. If it's not, we should throw an error, letting the consumer know that they passed an invalid argument to that function.
+
+<CodeFile file="greet.js" range="7-14" highlight="8-10" />
+
+This is a new intention so we need to add a new test for it.
+
+```js
+test('throws on greeting user with undefined user response', async () => {
+	expect(await greetByResponse(undefined)).toBe('???')
+})
+```
+
+This is a bit awkward. We expect the `greetByResponse()` function to _throw_, which means we cannot really `await` it. More to that, if the function throws, it _won't return anything_ so we cannot assert the returned value with `.toBe()`. We have to assert the thrown error instead.
+
+The most straightforward way to catch the error thrown in a promise is to wrap it in a `try/catch` block. Let's do just that:
+
+```js lines=7-9
+test('throws on greeting user with undefined user response', async () => {
+	try {
+		// Wait for the greet function to complete.
+		await greetByResponse(undefined)
+	} catch (error) {
+		// If it fails, assert the error.
+		expect(error.message).toBe(
+			'Failed to greet the user: no user response provided',
+		)
+	}
+})
+```
+
+This does look better, and the test may even pass, but there are still a couple of issues here:
+
+1. If the `greetByResponse()` promise _resolves_, the test will also pass. That would be against our intention.
+1. This test is too verbose. Its setup takes twice as much space on the screen than the actual code and its assertion. Similar to our initial implementation of assertions (when we used inline `try/catch`), the test here focuses too much on _how_ to run instead of _what_ intention we want to validate.
+
+It's time we made it more declarative. Wouldn't it be nice if we had some utility in the `expect()` function that would allow us to assert promise rejections in a more streamlined way? Something like this:
+
+```js
+await expect(greetByResponse(undefined)).rejects.toThrow(
+	new Error('Failed to greet the user: no user response provided'),
+)
+```
+
+Well, implementing this new `.rejects.toThrow()` assertion is your task in this exercise! Bonus points if you consider failing the assertion if the given promise resolves when it shouldn't.

@@ -1,3 +1,24 @@
 # Promise rejections
 
-- Solution to testing promise rejections.
+The first thing to realize is that with the `.rejects.toThrow()` API we are creating _a chain_. The `rejects` part becomes a property that returns another object with the `.toThrow()` function.
+
+I implement the `.toThrow()` function by returning the `actual` promise and catching whichever error it throws in the `.catch()` callback. Here, I'm using a simple string comparison between the actual and expected error messages, and throw if those don't match.
+
+<CodeFile file="setup.js" range="1-22" highlight="8-20" />
+
+> To handle false-positive scenarios, I add a `.then()` callback that always throws. This means that if the given `actual` promise resolves, the `expect(actual).rejects.toThrow()` assertion will reject, which is exactly what we want.
+
+Finally, I change the test case to use the newly created `.rejects.toThrow()` assertion and provide the expected error:
+
+<CodeFile file="greet.test.js" range="24-28" highlight="25-27" />
+
+<callout-info>Notice that we still have to `await` the `expect()` call because the `.toThrow()` function returns a promise.</callout-info>
+
+And I verify that the newly introduced behavior of the `greetByResponse()` function behaves as intended by running the tests:
+
+```txt nonumber nocopy
+✓ returns a greeting message for the given name
+✓ returns a congratulation message for the given name
+✓ throws on greeting user with undefined user response
+✓ returns a greeting message for the given user response
+```
