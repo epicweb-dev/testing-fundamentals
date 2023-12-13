@@ -1,34 +1,37 @@
 # Awaiting side effects
 
-Sometimes our application has asynchronous behaviors that are not related to the intention we are testing but still have to be accounted for anyway. For example:
+The asynchronous nature of some behaviors may be hidden from us. For example, when using React, we can update the state in response to a user request but the actual state transition cannot be accessed in test (e.g. to be awaited). It happens as a _side effect_. The thing is, we still have the intention we want to test coupled with that incaccessible side effect, so we need to account for it somehow.
 
-- Waiting for an HTTP request to finish before asserting the UI;
-- Waiting for retires and timers on the page;
-- ...
+Properly handling side effects, especially those we don't own (like state transition, browser navigation), is the key to eliminating flakiness in tests. In the end, we want _reliable_ tests, and side effects is the biggest contributing factor that makes them unpredictable.
 
-Taking those side effects into account and handling them properly is the key to eliminating test flakiness. In the end, we strive toward _reliable tests_, and side effects is the number one reason that makes them unpredictable.
+In this exercise, we are introducing a `NotificationManager`—a class responsible for displaying notifications for our users. It relies on the `greetByResponse()` function we wrote earlier but doesn't expose any promises for us to await in tests.
 
-- TODO Code example with the problem.
-- It seems difficult because those side effects are usually not exposed in the test. But that's a GOOD THING! You shouldn't be touching them. Those are implementation details. Instead, you should be _awaiting_ the proper state of your tested system.
+<CodeFile file="greet.js" range="20-30" highlight="22,27" />
+
+> To keep this exercise simple, I will replace the actual interaction with DOM with a different side effect: pushing items to the `this.notifications` array. The strategy of dealing with side effect remains the same no matter the type of the side effect we have.
+
+We can follow our hunch and write a test like this:
+
+<CodeFile file="greet.test.js" range="34-43" />
+
+Only this won't work at all. Since reading the user response is _asynchronous_, it won't finish by the time we reach the `expect()` line. The notification simply won't be present in the array yet.
+
+What we need is to _wait for notification_ but the `NotificationManager` class doesn't give us any means to do that directly. The only thing it gives us is the current state of the `notifications` array.
+
+In such situations, we have to await the next state of the data we have because the updates to it are asynchronous. We can use a `waitFor` function:
 
 ```js
-test('', async () => {
-  runCode()
-
-  await waitFor(() => {
-    expect(...).toBe(...)
-  })
+await waitFor(() => {
+	expect(manager.notifications[0]).toBe('Hello, Kate! Happy, Monday.')
 })
 ```
 
-```js
-function Component() {
-	function closure() {
-		// side effect is here.
-		// but it has effect on the state
-		// of Component.
-	}
+The intention behind the `waitFor` function is the following:
 
-	// some result.
-}
-```
+- Accept a callback as an argument;
+- Execute the callback.
+  - If the callback doesn't throw, return.
+  - If the callback throws, re-run it after an interval (e.g. 250ms);
+  - Retry the callback `N` times (e.g. 5). If it still throws, the `waitFor` function must forward that error to the test (throw it).
+
+That `waitFor` function sure sounds handy but where does it come from? You guessed it—you will be implementing it yourself right now!
