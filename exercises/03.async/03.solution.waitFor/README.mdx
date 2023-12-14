@@ -1,3 +1,46 @@
 # Awaiting side effects
 
-- Solution.
+I implement the `waitFor` function as a `while` loop, taking advantage of the `async` prefix, which means the function always returns a promise even if I don't explicitly say so. That way, I can utilize `return` to fulfill that promise, and `throw` to reject it at any point of execution.
+
+<CodeFile file="greet.test.js" range="40-57" highlight="48,51" />
+
+> There are countless ways to implement the `waitFor` function. It's okay if your implementation is different from mine. As long as the intention behind it is fulfilled, it's correct (hey, doesn't that sound oddly familiar?)
+
+Next, I wrap the notification message assertion from our test in the `waitFor` block and make sure to `await` it:
+
+<CodeFile file="greet.test.js" range="65-68" highlight="66,68" />
+
+## `waitFor` vs `sleep`
+
+You may be wondering:
+
+> Why can't I just pause the test and continue when all the side effects are done?
+
+It may be extremely tempting to resort to something like a `sleep` function:
+
+```js lines=6
+function sleep(duration) {
+	return new Promise(resolve => setTimeout(resolve, duration))
+}
+
+test('...', async () => {
+	await sleep(500)
+	expect(manager.notifications[0]).toBe('...')
+})
+```
+
+It's even less code, so it must be clever, right? And it does pass the test! But you see, the `sleep` function, just as it often happens with clever code, is tricker than it seems.
+
+Identically to `waitFor`, `sleep` is detached from the side effect we want to handle (pushing to array) but there is one key difference between them:
+
+<callout-info class="important">
+	`waitFor` is waiting for the _state_, `sleep` is waiting for _time_.
+</callout-info>
+
+As engineers writing reliable tests, our foremost duty is **abandon the guesswork**. We don't know how long certain side effects will take. But when using `sleep`, we pretend like we do. This kind of confidence is a sure recipe for false positive and flaky tests. **Never `sleep` while testing!**
+
+<callout-success>
+	Make sure to always wait for state with functions like `waitFor`. It's a
+	declarative way to express an expectation and help you handle things outside
+	of your control.
+</callout-success>
