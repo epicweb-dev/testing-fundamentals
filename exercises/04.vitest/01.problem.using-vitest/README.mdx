@@ -1,1 +1,52 @@
 # Using Vitest
+
+Once you have the knack of how testing frameworks work, adopting one should be a walk in the park. It comes down to two steps:
+
+1. Replacing our own helper functions, like `test()` and `expect()`, with those provided by the testing framework;
+1. Using the recommended CLI command to run the tests.
+
+In this exercise, let's migrate to Vitest together.
+
+🐨 First, install Vitest by opening your terminal and running this command:
+
+```sh nonumber
+npm install vitest --save-dev
+```
+
+🐨 Next, <InlineFile file="vitest.config.js">Click here to create the `vitest.config.js` file</InlineFile>
+
+And paste the following config in there:
+
+```js filename=vitest.config.js
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	test: {
+		globals: true,
+	},
+})
+```
+
+This is a basic Vitest configuration file. We are setting the `test.globals` option to `true` to tell Vitest to expose functions like `test()` and `expect()` globally for every test.
+
+Now, all that's left is to run our existing tests using the `vitest` CLI:
+
+```sh nonumber
+npx vitest
+```
+
+And see the result:
+
+```sh nonumber nocopy
+ ✓ greet.test.js (5)
+   ✓ returns a greeting message for the given name
+   ✓ returns a greeting message for the given user response
+   ✓ throws on greeting user with undefined user response
+   ✓ returns a congratulation message for the given name
+   ✓ displays a notification when a new user joins
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  17:35:57
+   Duration  505ms
+```
