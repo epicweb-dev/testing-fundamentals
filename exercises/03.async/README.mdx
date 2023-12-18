@@ -8,6 +8,6 @@ When writing applications, you will be creating and interacting with asynchronou
 
 And just as working with them, you will be testing them too.
 
-With the introduction of `async/await` syntax in JavaScript, it became easier to handle asynchronicity.
+With the introduction of `async/await` syntax in JavaScript, it became easier to handle asynchronicity, which often manifests in your code (and tests) as side effects. The thing is, not all side effects are the same. Some you initiate and control, others—you don't. Some are directly related to the intention of your code, while some are a byproduct of the other tooling you may be using. So no wonder that you'd have to handle those side effects in tests differently, because if you don't. . .
 
-- TODO: ...
+**You will be introducing flakiness to your tests.** A flaky test is the one that yields different results even if the tested code didn't change. And tests become flaky due to side effects, especially those that have asynchronous nature. The borderline is: flakiness makes you distruct your tests. This isn't the feeling you want, and is a sure indicator of a poorly written test.

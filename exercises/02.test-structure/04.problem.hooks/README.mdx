@@ -12,7 +12,7 @@ The issue with this test is that it will only pass on Mondays! That won't do. We
 
 Our `greet()` function constructs a `Date` to extract a weekday from it. This is a perfectly valid logic but it's also a _side effect_. The values that `Date` returns are not predictable—they change based on, well, the current date! We need to account for that change in our test by, somehow, _freezing_ the current date and making it return the same value on every test run.
 
-> TODO A note here that `Date` is just an example. You have to handle side effects in your tests in general.
+> The usage of `Date` in this case is just an example of a side effect your code may introduce. Whatever it is, the handling of such side effects is often the same.
 
 To handle side effects such as this one, tests often have the concept of "hooks". Hooks are functions that allow you to execute arbitrary code before, during, and after the test run. The purpose of hooks is to help you prepare the environment that runs your tested code.
 

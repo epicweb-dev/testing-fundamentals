@@ -12,7 +12,7 @@ Error: Expected Hello, ${name}! to equal to Hello, John!
 
 We can see a failing assertion but never points us to the problematic code or even test. We can likely guess the issue is with the `greet()` function based on the expected string but that assumption is only viable because we have just two tests at the moment. But what will happen once we have three, thirty, three hundred tests? Suddenly, we can't assume anymore and have to spend a lot of time trying to _debug the test_ instead of _fixing the issue_.
 
-TODO: Mention that since assertions are in the same scope, if the first throws, the second _will never get run_.
+More to that, since both assertions are in the same scope, if the first one throws, the second will never even run!
 
 Let's address this shortcoming by giving each test its own room to live in. Because just as we have benefited from a declarative `expect()` abstraction, we can save ourselves hours of confusion simply by providing a more declarative `test()` API for our tests:
 

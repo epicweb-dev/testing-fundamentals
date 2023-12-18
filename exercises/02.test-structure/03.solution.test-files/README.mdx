@@ -34,4 +34,6 @@ node --loader ./setup.js greet.test.js
 
 > I am using the `--loader` option in Node.js to load the `./setup.js` module _before_ running the `greet.test.js`. This way the `test()` and `expect()` functions are globally available in the test.
 
-TODO: We should be using `--import` but it's [bugged](https://github.com/nodejs/node/issues/40110#issuecomment-1808755491) in all versions of Node.js right now (also couldn't make it work on Node.js 18 at all).
+## INTERNAL NOTES
+
+- We should be using `--import` but it's [bugged](https://github.com/nodejs/node/issues/40110#issuecomment-1808755491) in all versions of Node.js right now (also couldn't make it work on Node.js 18 at all).
