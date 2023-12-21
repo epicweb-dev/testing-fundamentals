@@ -9,4 +9,18 @@ You have a `greet` function that should greet the user by their name. That's the
 greet.js</code> any time you want to check whether that functions works as
 intended.
 
+As a reminder, this is what any automated test comes down to:
+
+```js
+// Run the code and get the *actual* result.
+let result = code(...args)
+
+// Compare the actual with the expected results.
+if (result !== expected) {
+	// Alert us if the two results don't match
+	// as that likely means a bug in the code.
+	throw new Error(`Expected "${expected}" but got ${result}`)
+}
+```
+
 <callout-info>Remember that an automated test is a comparison between the actual and the expected values of the program.</callout-info>
