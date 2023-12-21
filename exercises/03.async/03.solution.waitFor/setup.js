@@ -11,13 +11,15 @@ function expect(actual) {
 					.then(() => {
 						throw new Promise('Expected the Promise to reject but it resolved')
 					})
-					.catch((error) => {
+					.catch(error => {
 						if (error.message !== expected.message) {
-							throw new Error(`Expected to throw an error "${expected.message}" but got "${error.message}"`)
+							throw new Error(
+								`Expected to throw an error "${expected.message}" but got "${error.message}"`,
+							)
 						}
 					})
-			}
-		}
+			},
+		},
 	}
 }
 

@@ -1,7 +1,7 @@
 import { greet, greetByResponse, congratulate } from './greet.js'
 
 const DateProxy = Proxy.revocable(globalThis.Date, {
-	construct: (Date) => new Date('2024-01-01')
+	construct: Date => new Date('2024-01-01'),
 })
 
 beforeAll(() => {
@@ -23,7 +23,7 @@ test('returns a greeting message for the given user response', async () => {
 
 test('throws on greeting user with undefined user response', async () => {
 	await expect(greetByResponse(undefined)).rejects.toThrow(
-		new Error('Failed to greet the user: no user response provided')
+		new Error('Failed to greet the user: no user response provided'),
 	)
 })
 

@@ -23,7 +23,7 @@ export class NotificationManager {
 	}
 
 	showNotification(response) {
-		greetByResponse(response).then((greetingText) => {
+		greetByResponse(response).then(greetingText => {
 			this.notifications.push(greetingText)
 		})
 	}
