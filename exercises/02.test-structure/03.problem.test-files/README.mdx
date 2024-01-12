@@ -15,4 +15,22 @@ It is a good practice, however, to keep the association between the source code 
 └── greet.test.js
 ```
 
-👨‍💼 In this one, your task is to move the existing tests for the `greet.js` module to a standalone `greet.test.js` test file. Bonus points if you make the `test()` and `expect()` functions available _globally_ in the added `greet.test.js` file.
+👨‍💼 In this one, your task will be to move all the existing tests into a designated test file.
+
+It's going to involve moving code around but don't worry, Kody the Koala is here to help!
+
+🐨 First, <InlineFile file="greet.test.js">Click here to create the `greet.test.js` file</InlineFile>
+
+🐨 Once the `greet.test.js` file is created, move the existing tests from `greet.js` there.
+
+Next, you have to make the `test()` and `expect()` functions be available _globally_ for the `greet.test.js` file. To do that, use the `--loader` option on the Node.js CLI.
+
+🐨 To start, <InlineFile file="setup.js">Click here to create the `setup.js` file</InlineFile>
+
+Then, move the declaration for the `test()` and `expect()` functions to the newly created `setup.js` file.
+
+Finally, to run the tests, use the `--loader` option of the Node.js CLI to reference the `setup.js` as a global file to include:
+
+```sh
+node --loader setup.js greet.test.js
+```

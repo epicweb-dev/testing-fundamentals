@@ -20,3 +20,15 @@ if (message !== 'Congrats, Sarah!') {
 		`Expected message to equal to "Congrats, Sarah!" but got "${message}"`,
 	)
 }
+
+// 🐨 Create a function called "expect" that accepts a single argument:
+// the "actual" value.
+
+// 🐨 From the "expect" function, return an object that has
+// a "toBe" property, which equals to a new function.
+// The "toBe" function accepts the "expected" argument.
+// 💰 Use shorthand function declaration on objects: { toBe() {} }
+
+// 🐨 In the "toBe" function, compare the actual and the expected
+// values, and throw an error if they don't mtach.
+// 💰 This file may have something very similar written before...

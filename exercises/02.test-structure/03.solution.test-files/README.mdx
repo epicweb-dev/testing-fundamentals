@@ -29,10 +29,10 @@ And now, to expose them as global functions, I will extend the `globalThis` obje
 All that remains is to verify that the tests are running correctly.
 
 ```sh nonumber
-node --loader ./setup.js greet.test.js
+node --loader setup.js greet.test.js
 ```
 
-> I am using the `--loader` option in Node.js to load the `./setup.js` module _before_ running the `greet.test.js`. This way the `test()` and `expect()` functions are globally available in the test.
+> I am using the `--loader` option in Node.js to load the `setup.js` module _before_ running the `greet.test.js`. This way the `test()` and `expect()` functions are globally available in the test.
 
 ## INTERNAL NOTES
 
