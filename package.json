@@ -24,7 +24,7 @@
     "validate:all": "npm-run-all --parallel --print-label --print-name --continue-on-error test:all lint typecheck"
   },
   "keywords": [],
-  "author": "Artem Zakharchenko <kettanaito@gmail.vom> (https://kettanaito.com/)",
+  "author": "Artem Zakharchenko <me@kettanaito.com> (https://kettanaito.com/)",
   "license": "GPL-3.0-only",
   "dependencies": {
     "@kentcdodds/workshop-app": "^2.60.3"
