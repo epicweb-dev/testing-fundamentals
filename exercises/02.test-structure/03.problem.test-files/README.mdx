@@ -32,5 +32,5 @@ Then, move the declaration for the `test()` and `expect()` functions to the newl
 Finally, to run the tests, use the `--loader` option of the Node.js CLI to reference the `setup.js` as a global file to include:
 
 ```sh
-node --loader setup.js greet.test.js
+node --loader ./setup.js greet.test.js
 ```
