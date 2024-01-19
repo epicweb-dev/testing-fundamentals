@@ -9,7 +9,7 @@ function expect(actual) {
 			toThrow(expected) {
 				return actual
 					.then(() => {
-						throw new Promise('Expected the Promise to reject but it resolved')
+						throw new Error('Expected the Promise to reject but it resolved')
 					})
 					.catch(error => {
 						if (error.message !== expected.message) {
