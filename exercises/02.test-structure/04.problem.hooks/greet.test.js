@@ -24,7 +24,7 @@ import { greet, congratulate } from './greet.js'
 // 💰 dateProxy.revoke()
 
 test('returns a greeting message for the given name', () => {
-	expect(greet('John')).toBe('Hello, John! Happy, Monday!')
+	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
 })
 
 test('returns a congratulation message for the given name', () => {
