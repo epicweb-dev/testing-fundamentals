@@ -69,13 +69,13 @@ details as you can offer.
 
 You will find all the exercises in the `exercises` directory. You will be
 progressing through the workshop in the workshop app (more on that below) and
-working on every one of those in your code editor of choice.
+working on every exercise in your code editor of choice.
 
 Note that the purpose of the exercise is **not** to skim through it and
 continue. In every exercise, you will get a real-world problem and _you_ will be
 tasked with fixing it. There will be plenty of information and hints to assist
 you on your path but it is by tackling the problems head-on what will make those
-learnings last you all your career.
+learnings stick.
 
 ## Running the app
 
