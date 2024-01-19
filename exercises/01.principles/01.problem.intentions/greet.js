@@ -7,5 +7,7 @@ function greet(name) {
 // 💰 Maybe pass "John" as the name.
 
 // 🐨 Add an "if" statement to check whether the "message" equals
-// what you expect.
-// 💰 Verify the message is "Hello, John!"
+// to what you expect. If it's not, throw an error.
+// 💰 Verify the message equals to "Hello, John!"
+// 💰 You can throw an error like this one:
+// new Error(`Expected message to equal to "Hello, John!" but got "${message}"`)
