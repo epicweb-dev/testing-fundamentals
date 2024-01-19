@@ -16,7 +16,7 @@ Our `greet()` function constructs a `Date` to extract a weekday from it. This is
 
 To handle side effects such as this one, tests often have the concept of "hooks". Hooks are functions that allow you to execute arbitrary code before, during, and after the test run. The purpose of hooks is to help you prepare the environment that runs your tested code.
 
-👨‍💼 In this exercise, you'd have to implement _two_ new global functions (hooks) in `setup.js`:
+🐨 In this exercise, you'd have to implement _two_ new global functions (hooks) in `setup.js`:
 
 - `beforeAll()`, which accepts a callback argument and runs it before all tests;
 - `afterAll()`, which accepts a callback argument and runs it after the tests are done.
@@ -41,17 +41,10 @@ afterAll(() => {
 })
 ```
 
----
+## The Golden Rule of Assertions
 
-## INTERNAL NOTES
+This problem illustrates the importance of the testing setup for the quality of your tests. Our code does what it was inteded to do but the tests still fail. When that happens, you know you've got a _bad test_. Turns out, such tests don't pass _The Golden Rule of Assertions_:
 
-<callout-success class="important">A good test only fails when the intention behind the system is breached.</callout-success>
+<callout-success class="important">A test must fail if, and only if, the intention behind the system is not met.</callout-success>
 
-- HTTP request.
-- Connecting to a datbase.
-- Relying on globals.
-- **Timers**.
-
-```
-
-```
+📜 It's a fantastic rule to keep in mind when writing tests. Learn more about [The Golden Rule of Assertion](https://www.epicweb.dev/the-golden-rule-of-assertions) and how it can help you write better tests every single tim.
