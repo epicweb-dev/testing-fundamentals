@@ -36,33 +36,29 @@ test('returns a congratulation message for the given name', () => {
 	expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
 })
 
-test('displays a notification when a new user joins', async () => {
-	async function waitFor(callback) {
-		let retries = 0
-		const maxRetries = 5
+async function waitFor(callback) {
+	let retries = 0
+	const maxRetries = 5
 
-		while (retries < maxRetries) {
-			try {
-				retries++
-				callback()
-				return
-			} catch (error) {
-				if (retries === maxRetries) {
-					throw error
-				}
-
-				await new Promise(resolve => setTimeout(resolve, 250))
+	while (retries < maxRetries) {
+		try {
+			retries++
+			callback()
+			return
+		} catch (error) {
+			if (retries === maxRetries) {
+				throw error
 			}
+
+			await new Promise(resolve => setTimeout(resolve, 250))
 		}
 	}
+}
 
-	// Create a new notification manager.
+test('displays a notification when a new user joins', async () => {
 	const manager = new NotificationManager()
-
-	// Join with a new user.
 	manager.showNotification(Response.json({ firstName: 'Kate' }))
 
-	// Must show the notification for Kate.
 	await waitFor(() => {
 		expect(manager.notifications[0]).toBe('Hello, Kate! Happy, Monday.')
 	})

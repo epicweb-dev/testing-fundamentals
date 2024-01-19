@@ -12,7 +12,7 @@ In this exercise, we are introducing a `NotificationManager`—a class responsib
 
 We can follow our hunch and write a test like this:
 
-<CodeFile file="greet.test.js" range="39-48" />
+<CodeFile file="greet.test.js" range="39-44" />
 
 Only this won't work at all. Since reading the user response is _asynchronous_, it won't finish by the time we reach the `expect()` line. The notification simply won't be present in the array yet.
 
@@ -34,4 +34,4 @@ The intention behind the `waitFor` function is the following:
   - If the callback throws, re-run it after an interval (e.g. 250ms);
   - Retry the callback `N` times (e.g. 5). If it still throws, the `waitFor` function must forward that error to the test (throw it).
 
-👨‍💼 That `waitFor` function sure sounds handy but where does it come from? You guessed it—you will be implementing it yourself right now!
+🐨 That `waitFor` function sure sounds handy but where does it come from? You guessed it—you will be implementing it yourself right now!
