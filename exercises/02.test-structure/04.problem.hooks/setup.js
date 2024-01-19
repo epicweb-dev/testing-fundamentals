@@ -29,8 +29,7 @@ function test(title, callback) {
 // 🐨 In the "afterAll" function, call the "callback" function
 // only when the tests's are done.
 // 💰 The tests are done when the Node.js process exits.
-// You can add the "beforeExit" event listener on the "process" object
-// to know when that happens!
+// process.on('beforeExit', callback)
 
 globalThis.expect = expect
 globalThis.test = test

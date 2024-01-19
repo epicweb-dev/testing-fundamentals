@@ -23,7 +23,7 @@ function beforeAll(callback) {
 }
 
 function afterAll(callback) {
-	process.addListener('beforeExit', () => {
+	process.on('beforeExit', () => {
 		callback()
 	})
 }
