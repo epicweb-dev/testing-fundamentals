@@ -1,25 +1,11 @@
 <div>
-  <h1 align="center"><a href="https://www.epicweb.dev/workshops">Testing Fundamentals</a></h1>
+  <h1 align="center">Testing Fundamentals</h1>
   <strong>
     Learn the fundamentals of automated testing in JavaScript.
   </strong>
   <p>
-    Workshop summary
+    In this workshop, we will build our own version of <a href="https://vitest.dev/">Vitest</a> and learn the essential mental models and best practices behind any automated test.
   </p>
-</div>
-
-<hr />
-
-<div align="center">
-  <a
-    alt="Epic Web logo with the words Deployed Version"
-    href="https://epicweb-dev-workshop-template.fly.dev/"
-  >
-    <img
-      width="300px"
-      src="https://github-production-user-asset-6210df.s3.amazonaws.com/1500684/254000390-447a3559-e7b9-4918-947a-1b326d239771.png"
-    />
-  </a>
 </div>
 
 <hr />
@@ -32,23 +18,26 @@
 
 ## Prerequisites
 
-- TODO: add prerequisites
-- Some
-- Pre-requisite
-- links
-- here
+You don't have to have any prior experience with automated testing to complete
+this workshop. Having a **basic experience with JavaScript**, however, is
+required as we won't be covering things like objects, functions, imports/exports
+as a part of this workshop.
 
 ## Pre-workshop Resources
 
-Here are some resources you can read before taking the workshop to get you up to
-speed on some of the tools and concepts we'll be covering:
+Feel free to go through the additional resources below before, during, or after
+the workshop. They are here to set you on the right track of thinking about
+automated testing, as well as expand on the concepts and practices we will be
+covering during the workshop.
 
-- TODO: add resources
+- [**The True Purpose of Testing**](https://www.epicweb.dev/the-true-purpose-of-testing)
+- [The Golden Rule of Assertions](https://www.epicweb.dev/the-golden-rule-of-assertions)
 
 ## System Requirements
 
-- [git][git] v2.18 or greater
-- [NodeJS][node] v20 or greater
+- [git][git] v2.18 or greater;
+- [NodeJS][node] v20 or greater;
+- [npm](https://www.npmjs.com/) v8 or greater.
 
 All of these must be available in your `PATH`. To verify things are set up
 properly, you can run this:
@@ -56,6 +45,7 @@ properly, you can run this:
 ```shell
 git --version
 node --version
+npm --version
 ```
 
 If you have trouble with any of these, learn more about the PATH environment
@@ -74,6 +64,28 @@ npm run setup
 
 If you experience errors here, please open [an issue][issue] with as many
 details as you can offer.
+
+## Exercises
+
+You will find all the exercises in the `exercises` directory. You will be
+progressing through the workshop in the workshop app (more on that below) and
+working on every one of those in your code editor of choice.
+
+Note that the purpose of the exercise is **not** to skim through it and
+continue. In every exercise, you will get a real-world problem and _you_ will be
+tasked with fixing it. There will be plenty of information and hints to assist
+you on your path but it is by tackling the problems head-on what will make those
+learnings last you all your career.
+
+## Running the app
+
+To get the app up and running, run:
+
+```sh
+npm start
+```
+
+Open the address printed in the terminal in the browser, and you're good to go!
 
 ## The Workshop App
 
