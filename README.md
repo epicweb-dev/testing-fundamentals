@@ -77,7 +77,7 @@ tasked with fixing it. There will be plenty of information and hints to assist
 you on your path but it is by tackling the problems head-on what will make those
 learnings stick.
 
-## Running the app
+## Running the App
 
 To get the app up and running, run:
 
