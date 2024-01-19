@@ -6,6 +6,18 @@ function congratulate(name) {
 	return `Congrats, ${name}!`
 }
 
+// 🐨 Wrap each of the existing "expect()" calls in the
+// "test()" function you will write later down this file.
+
+// 💰 Use meaningful test case names, like:
+// - returns a greeting message for the given name
+// - returns a congratulation message for the given name
+
+// 💰 Provide the callback to the "test()" function that
+// will run these assertions.
+// test('', () => {
+//  expect(greet('John')).toBe('Hello, John!')
+// })
 expect(greet('John')).toBe('Hello, John!')
 expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
 
