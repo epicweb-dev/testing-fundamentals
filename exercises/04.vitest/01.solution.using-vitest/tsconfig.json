@@ -9,5 +9,5 @@
 		"noEmit": true,
     "types": ["vitest/globals"]
   },
-  "include": ["."]
+  "include": ["**/*"]
 }

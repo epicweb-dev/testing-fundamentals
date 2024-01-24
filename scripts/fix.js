@@ -49,7 +49,8 @@ function relativeToWorkshopRoot(dir) {
 
 await updatePkgNames()
 await updateRootTsConfig()
-await updateExerciseTsConfigs()
+await copyExerciseTsConfigs()
+await copyExercisePrettierConfigs()
 
 async function updatePkgNames() {
 	for (const file of appsWithPkgJson) {
@@ -90,7 +91,7 @@ async function updateRootTsConfig() {
 	}
 }
 
-async function updateExerciseTsConfigs() {
+async function copyExerciseTsConfigs() {
 	const exercisesWithoutTsCongif = exerciseApps.filter((exercisePath) => {
 		return !fs.existsSync(path.join(exercisePath, 'tsconfig.json'))
 	})
@@ -107,6 +108,17 @@ async function updateExerciseTsConfigs() {
 	await Promise.all(exercisesWithoutTsCongif.map((exercisePath) => {
 		const tsConfigPath = path.resolve(exercisePath, 'tsconfig.json')
 		return fs.promises.writeFile(tsConfigPath, tsConfigTemplate)
+	}))
+}
+
+async function copyExercisePrettierConfigs() {
+	const prettierConfig = await fs.promises.readFile(
+		path.join(workshopRoot, '.prettierrc'),
+		'utf8',
+	)
+	await Promise.all(exerciseApps.map(exercise => {
+		const prettierConfigPath = path.join(exercise, '.prettierrc')
+		return fs.promises.writeFile(prettierConfigPath, prettierConfig)
 	}))
 }
 
