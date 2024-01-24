@@ -7,5 +7,6 @@
 		"allowJs": true,
     "skipLibCheck": true,
 		"noEmit": true
-  }
+  },
+  "include": ["**/*"]
 }
