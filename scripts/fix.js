@@ -2,7 +2,6 @@
 // because you may need to run it without deps.
 
 import fs from 'node:fs'
-import cp from 'node:child_process'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -49,7 +48,8 @@ function relativeToWorkshopRoot(dir) {
 }
 
 await updatePkgNames()
-await updateTsconfig()
+await updateRootTsConfig()
+await updateExerciseTsConfigs()
 
 async function updatePkgNames() {
 	for (const file of appsWithPkgJson) {
@@ -66,7 +66,7 @@ async function updatePkgNames() {
 	}
 }
 
-async function updateTsconfig() {
+async function updateRootTsConfig() {
 	const tsconfig = {
 		files: [],
 		exclude: ['node_modules'],
@@ -88,6 +88,26 @@ async function updateTsconfig() {
 		}
 		console.log('all fixed up')
 	}
+}
+
+async function updateExerciseTsConfigs() {
+	const exercisesWithoutTsCongif = exerciseApps.filter((exercisePath) => {
+		return !fs.existsSync(path.join(exercisePath, 'tsconfig.json'))
+	})
+
+	if (exercisesWithoutTsCongif.length === 0) {
+		return
+	}
+
+	const tsConfigTemplate = await fs.promises.readFile(
+		here('./tsconfig.json'),
+		'utf8',
+	)
+
+	await Promise.all(exercisesWithoutTsCongif.map((exercisePath) => {
+		const tsConfigPath = path.resolve(exercisePath, 'tsconfig.json')
+		return fs.promises.writeFile(tsConfigPath, tsConfigTemplate)
+	}))
 }
 
 async function writeIfNeeded(filepath, content) {
