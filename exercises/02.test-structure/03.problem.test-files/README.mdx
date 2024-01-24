@@ -1,6 +1,6 @@
 # Test files
 
-Right now, we keep our tests in the same file as the code they verify. If someone imports `greet.js`, they will also import and run the tests, which is not something we want in production (we should be concerned with the tests, not our users).
+Right now, we keep our tests in the same file as the code they verify. If someone imports `greet.ts`, they will also import and run the tests, which is not something we want in production (we should be concerned with the tests, not our users).
 
 <callout-warning>This testing approach is called _in-source testing_ and can be handy when unit testing or prototyping but requires additional setup to be used properly. In this workshop, we will move away from it to a more common file-based approach.</callout-warning>
 
@@ -11,26 +11,26 @@ There are multiple ways to structure test files. You can keep them next to the s
 It is a good practice, however, to keep the association between the source code and the test file. Often, this is done by naming the test similar to the module it verifies and adding a `.test.js` or `.spec.js` suffix to it.
 
 ```txt lines=2 nonumber
-├── greet.js
-└── greet.test.js
+├── greet.ts
+└── greet.test.ts
 ```
 
 👨‍💼 In this one, your task will be to move all the existing tests into a designated test file.
 
 It's going to involve moving code around but don't worry, Kody the Koala is here to help!
 
-🐨 First, <InlineFile file="greet.test.js">Click here to create the `greet.test.js` file</InlineFile>
+🐨 First, <InlineFile file="greet.test.ts">Click here to create the `greet.test.ts` file</InlineFile>
 
-🐨 Once the `greet.test.js` file is created, move the existing tests from `greet.js` there.
+🐨 Once the `greet.test.ts` file is created, move the existing tests from `greet.ts` there.
 
-Next, you have to make the `test()` and `expect()` functions be available _globally_ for the `greet.test.js` file. To do that, use the `--loader` option on the Node.js CLI.
+Next, you have to make the `test()` and `expect()` functions be available _globally_ for the `greet.test.ts` file. To do that, use the `--loader` option on the Node.js CLI.
 
-🐨 To start, <InlineFile file="setup.js">Click here to create the `setup.js` file</InlineFile>
+🐨 To start, <InlineFile file="setup.ts">Click here to create the `setup.ts` file</InlineFile>
 
-Then, move the declaration for the `test()` and `expect()` functions to the newly created `setup.js` file.
+Then, move the declaration for the `test()` and `expect()` functions to the newly created `setup.ts` file.
 
-Finally, to run the tests, use the `--loader` option of the Node.js CLI to reference the `setup.js` as a global file to include:
+Finally, to run the tests, use the `--loader` option of the Node.js CLI to reference the `setup.ts` as a global file to include:
 
 ```sh
-node --loader ./setup.js greet.test.js
+npx tsx --import ./setup.ts greet.test.ts
 ```

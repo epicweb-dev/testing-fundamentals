@@ -2,11 +2,11 @@
 
 In our application, we use the `greet()` function a lot in conjunction with fetching the user from a server. To simplify this usage, we've introduced a new function called `greetByResponse()` that accepts a Fetch API `Response` instance representing the user response from the server.
 
-<CodeFile file="greet.js" range="7-10" nocopy />
+<CodeFile file="greet.ts" range="7-10" nocopy />
 
 So now, whenever we need to greet a fetched user, we can use this new function:
 
-```js nocopy
+```ts nocopy
 fecth('/api/user')
 	.then(response => greetByResponse(response))
 	.then(greeting => render(greeting))
@@ -14,7 +14,7 @@ fecth('/api/user')
 
 Next, we've added a test case for the `greetByResponse()` function. Since it's marked as `async`, it will return a promise when run. We will account for that promise by making the test callback `async` and `await`'ing the result of the `greetByResponse()` function call in the test:
 
-<CodeFile file="greet.test.js" range="19-22" highlight="19,21" nocopy />
+<CodeFile file="greet.test.ts" range="19-22" highlight="19,21" nocopy />
 
 All the tests are passing once we run them but there's also some assertion error printed _after_ the tests. It looks suspiciously related to `greetByResponse()`.
 
@@ -28,4 +28,4 @@ Error: Expected Hello, undefined! Happy, Monday. to equal to Hello, Patrick! Hap
 
 The issue here is that the `test()` function doesn't wait for the test to finish (in our case, for the `greetByResponse()` function to finish reading the user response body as JSON) so it prints a successful run even if the test fails!
 
-👨‍💼 Your task for this exercise is to adjust the `test()` function to support the `callback()` being asynchronous and have the newly added test pass.
+🐨 Your task for this exercise is to adjust the `test()` function to support the `callback()` being asynchronous and have the newly added test pass.

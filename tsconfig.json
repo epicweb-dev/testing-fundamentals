@@ -5,16 +5,19 @@
   ],
   "references": [
     {
-      "path": "exercises/01.intentions/01.problem.verify"
+      "path": "exercises/01.principles/01.problem.intentions"
     },
     {
-      "path": "exercises/01.intentions/01.solution.verify"
+      "path": "exercises/01.principles/01.solution.intentions"
     },
     {
-      "path": "exercises/01.intentions/02.problem.implementation"
+      "path": "exercises/01.principles/02.problem.implementation-details"
     },
     {
-      "path": "exercises/01.intentions/02.solution.implementation"
+      "path": "exercises/01.principles/02.solution.implementation-details"
+    },
+    {
+      "path": "exercises/04.vitest/01.solution.using-vitest"
     }
   ]
 }

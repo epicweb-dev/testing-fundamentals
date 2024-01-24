@@ -2,11 +2,11 @@
 
 First, I will move the existing `if` logic for assertions into the new `toBe` function returned from the `expect`.
 
-<CodeFile file="greet.js" range="12-20" highlight="15-17" />
+<CodeFile file="greet.ts" range="12-20" highlight="15-17" />
 
 Then, refactor the existing tests to use the new `expect` function.
 
-<CodeFile file="greet.js" range="9-10" />
+<CodeFile file="greet.ts" range="9-10" />
 
 Notice how much more human-friendly those assertions have become! Although a test is code that verifies another code, we still write them for ourselves and for our colleagues. We still write tests for humans. Preferring a more declarative style while doing so, such as our `expect` function, is one way to make sure those humans can get around faster and tackle failing tests more efficiently.
 
