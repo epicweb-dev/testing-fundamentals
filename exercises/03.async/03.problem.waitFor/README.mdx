@@ -6,13 +6,13 @@ Properly handling side effects, especially those we don't own (like state transi
 
 In this exercise, we are introducing a `NotificationManager`—a class responsible for displaying notifications for our users. It relies on the `greetByResponse()` function we wrote earlier but doesn't expose any promises for us to await in tests.
 
-<CodeFile file="greet.js" range="20-30" highlight="20,26" />
+<CodeFile file="greet.ts" range="20-32" highlight="21,28" />
 
 > To keep this exercise simple, I will replace the actual interaction with DOM with a different side effect: pushing items to the `this.notifications` array. The strategy of dealing with side effect remains the same no matter the type of the side effect we have.
 
 We can follow our hunch and write a test like this:
 
-<CodeFile file="greet.test.js" range="39-44" />
+<CodeFile file="greet.test.ts" range="39-44" />
 
 Only this won't work at all. Since reading the user response is _asynchronous_, it won't finish by the time we reach the `expect()` line. The notification simply won't be present in the array yet.
 

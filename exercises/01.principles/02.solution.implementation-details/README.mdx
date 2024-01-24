@@ -4,14 +4,14 @@ The first thing I do whenever a test fails, I look at the _assertions_ (comparis
 
 In the case of our `greet` function, when given the name `"John"` I expect it to return the `"Hello, John!"` string.
 
-<CodeFile file="greet.js" range="5-9" highlight="7" />
+<CodeFile file="greet.ts" range="5-9" highlight="7" />
 
 This is a crucial piece of information that lets me know what's the _intention_ here.
 
 Next, I jump to the `greet` function and notice that it returns `Howdy` instead of `Hello`. That is a bug and I fix it:
 
-```js remove=2 add=3
-function greet(name) {
+```ts remove=2 add=3
+function greet(name: string) {
 	return `Howdy, ${name}!`
 	return `Hello, ${name}!`
 }
@@ -20,7 +20,7 @@ function greet(name) {
 With the fix in place, I re-run the tests to see them pass! :tada:
 
 ```sh
-node greet.js
+node greet.ts
 ```
 
 ## Intention vs Implementation

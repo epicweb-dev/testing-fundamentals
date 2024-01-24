@@ -2,18 +2,18 @@
 
 To get started, I will call the `greet` function with the name `"John"` and store the result in a new variable called `message`.
 
-<CodeFile file="greet.js" range="5" />
+<CodeFile file="greet.ts" range="5" />
 
 With this argument, I expect the `greet` function to return a `"Hello, John!"` string. I will compare the actual `message` it returns with the expected (intended) message, and if they don't match, throw an error that lets me know something is off with the function.
 
-<CodeFile file="greet.js" range="7-9" highlight="8" />
+<CodeFile file="greet.ts" range="7-9" highlight="8" />
 
 :tada: Congratulations! You've just written the most basic automated test.
 
-Now, on its own, just _having_ a test doesn't bring us any value. We need to _run_ it. At this stage, we can do that by running the `greet.js` file using Node.js:
+Now, on its own, just _having_ a test doesn't bring us any value. We need to _run_ it. At this stage, we can do that by running the `greet.ts` file using Node.js:
 
 ```sh nonumber
-node greet.js
+npx tsx greet.ts
 ```
 
 It may seem like nothing is happening but that's not true. Our file and our test are run and Node.js exits without errors, which means that our `greet` function works as intended.

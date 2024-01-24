@@ -3,7 +3,7 @@
 It looks like a bug found its way into our code! But before you do anything, let's run the tests to help us figure out what's wrong. In the end, that's exactly what we write them for, isn't it?
 
 ```sh nonumber
-node greet.js
+npx tsx greet.ts
 ```
 
 ```
@@ -16,7 +16,7 @@ More to that, since both assertions are in the same scope, if the first one thro
 
 Let's address this shortcoming by giving each test its own room to live in. Because just as we have benefited from a declarative `expect()` abstraction, we can save ourselves hours of confusion simply by providing a more declarative `test()` API for our tests:
 
-```js
+```ts
 test('first test', () => {
 	expect(actual).toBe(expected)
 })

@@ -1,25 +1,25 @@
 # Hooks
 
-First, I implement the `beforeAll()` hook by going to the `setup.js` and creating a new `beforeAll()` function that accepts a `callback` and immediately invokes it.
+First, I add the `beforeAll()` and `afterAll()` function declarations to the `global` namespace in TypeScript:
 
-<CodeFile file="setup.js" range="21-23" />
+<CodeFile file="setup.ts" range="1-10" highlight="8-9" />
+
+Then, I implement the `beforeAll()` function, which invokes the given `callback` immediately.
+
+<CodeFile file="setup.ts" range="32-34" highlight="33" />
 
 <callout-warning>Here, I'm relying that the `beforeAll()` function will be called _before_ any individual tests. Actual testing frameworks usually have a runner responsible for internally orchestrating hooks and tests regardless of the invocation order.</callout-warning>
 
-The `afterAll()` hook is a similar function that delegates the callback to when the Node.js process is about to exit (i.e. tests are finished) by adding the `"beforeExit"` event listener on the `process` object.
+The `afterAll` function will be a bit different. To invoke the `callback` once the tests are done, I will utilize the `beforeExit` event of a Node.js process to let me know when the test run is about to exit.
 
-<CodeFile file="setup.js" range="25-29" highlight="26" />
+<CodeFile file="setup.ts" range="36-40" highlight="37-39" />
 
-And similar to the `test()` and `expect()` functions, I expose the `beforeAll()` and `afterAll()` hooks globally for all tests:
+Then, I go to the `greet.test.ts` and add the `beforeAll()` hook that patches the global `Date` constructor and uses the stored `OriginalDate` class to create a fixed date.
 
-<CodeFile file="setup.js" range="33-34" />
-
-Then, I go to the `greet.test.js` and add the `beforeAll()` hook that patches the global `Date` constructor and uses the stored `OriginalDate` class to create a fixed date.
-
-<CodeFile file="greet.test.js" range="3-9" highlight="3,6-8" />
+<CodeFile file="greet.test.ts" range="3-9" highlight="4,7-9" />
 
 Similarly, I make sure to clean up this patch in the `afterAll()` hook:
 
-<CodeFile file="greet.test.js" range="11-13" highlight="12" />
+<CodeFile file="greet.test.ts" range="11-13" highlight="12" />
 
 <callout-success>Remember the rule of clean hooks: have a cleanup for each side effect in your setup (e.g. spawn a server → close the server; patch a global → restore the global).</callout-success>

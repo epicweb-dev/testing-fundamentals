@@ -1,20 +1,38 @@
 # Promise rejections
 
-The first thing to realize is that with the `.rejects.toThrow()` API we are creating _a chain_. The `rejects` part becomes a property that returns another object with the `.toThrow()` function.
+The first thing to realize is that with the `.rejects.toThrow()` API we are creating _a chain_. The `rejects` part becomes a property that returns another object with the `.toThrow()` function. I reflect this in the `Assertions` type straight away:
 
-I implement the `.toThrow()` function by returning the `actual` promise and catching whichever error it throws in the `.catch()` callback. Here, I'm using a simple string comparison between the actual and expected error messages, and throw if those don't match.
+<CodeFile file="setup.ts" range="1-6" highlight="3-5" />
 
-<CodeFile file="setup.js" range="1-22" highlight="8-20" />
+> Note that the `.rejects.toThrow()` assertion will be returning a Promise. Annotate its return type accordingly (`Promise<void>`).
+
+Next, I extend the object returned from the `globalThis.expect` function to have the `rejects` property. In that property, I define a new `toThrow` function.
+
+<CodeFile file="setup.ts" range="15-23" highlight="22-23" />
+
+Although the `actual` value we be a Promise in our case, we can pass _anything_ to the `expect()` function. If we assume it's a Promise, and write `actual.catch()`, TypeScript will kindly warn us that `actual` is `unknown`, and it doesn't necessarily have the `.then()`/`.catch()` methods a Promise has.
+
+I make sure that the passed `actual` value is the instance of Promise:
+
+<CodeFile file="setup.ts" range="22-26" highlight="24-26" />
+
+Now that we are always asserting on a Promise, I will make sure it rejects, and compare the expected and the actual error messages once it does.
+
+<CodeFile file="setup.ts" range="22-40" highlight="29-38" />
 
 > To handle false-positive scenarios, I add a `.then()` callback that always throws. This means that if the given `actual` promise resolves, the `expect(actual).rejects.toThrow()` assertion will reject, which is exactly what we want.
 
 Finally, I change the test case to use the newly created `.rejects.toThrow()` assertion and provide the expected error:
 
-<CodeFile file="greet.test.js" range="24-28" highlight="25-27" />
+<CodeFile file="greet.test.ts" range="24-28" highlight="25-27" />
 
-<callout-info>Notice that we still have to `await` the `expect()` call because the `.toThrow()` function returns a promise.</callout-info>
+<callout-info>Notice that we have to `await` the `expect()` call because the `.toThrow()` function returns a promise.</callout-info>
 
 And I verify that the newly introduced behavior of the `greetByResponse()` function behaves as intended by running the tests:
+
+```sh
+npx tsx --import ./setup.ts greet.test.ts
+```
 
 ```txt nonumber nocopy
 ✓ returns a greeting message for the given name

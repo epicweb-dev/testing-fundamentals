@@ -1,35 +1,35 @@
 # Test files
 
-I start by creating a new `greet.test.js` file and moving only the `test(...)` blocks there.
+I start by creating a new `greet.test.ts` file and moving only the `test(...)` blocks there.
 
-<CodeFile file="greet.test.js" range="3-9" />
+<CodeFile file="greet.test.ts" range="3-9" />
 
-<callout-info>Which suffix to use: `.spec.js` or `.test.js`, or both?</callout-info>
+<callout-info>Which suffix to use: `.spec.ts` or `.test.ts`, or both?</callout-info>
 
 If I try to run test test file now, it will exit on undefined `greet()` and `congratulation()` functions because they are neither defined nor imported from anywhere.
 
-So I go and export those functions from the `greet.js` module:
+So I go and export those functions from the `greet.ts` module:
 
-<CodeFile file="greet.js" range="1-7" highlight="1,5" />
+<CodeFile file="greet.ts" range="1-7" highlight="1,5" />
 
 And import them in the test file:
 
-<CodeFile file="greet.test.js" range="1-9" highlight="1" />
+<CodeFile file="greet.test.ts" range="1-9" highlight="1" />
 
 Next, I want to make the `test()` and `expect()` functions available _globally_. Every test will be using those, so there's no need to explicitly import them every time.
 
-I create a `setup.js` file where I move the `test()` and `expect()` functions from `greet.js`.
+Next, I create a `setup.ts` file where I start by describing the `test()` and `expect()` functions in TypeScript. I add them to the `global` namespace to let TypeScript know those functions will be available globally, and that we don't have to import them.
 
-<CodeFile file="setup.js" range="1-19" />
+<CodeFile file="setup.ts" range="1-8" highlight="5-8" />
 
-And now, to expose them as global functions, I will extend the `globalThis` object by adding new global properties `test` and `expect`. As their values, I will reference the existing `test()` and `greet()` functions.
+Then, I move the existing `test()` and `expect()` functions directly to the `globalThis` object to expose them globally on _runtime_ and also benefit from the type inferrence since they are now fully annotated!
 
-<CodeFile file="setup.js" range="21-22" />
+<CodeFile file="setup.ts" range="10-29" highlight="10,20" />
 
 All that remains is to verify that the tests are running correctly.
 
 ```sh nonumber
-node --loader setup.js greet.test.js
+npx tsx --import ./setup.ts greet.test.ts
 ```
 
-> I am using the `--loader` option in Node.js to load the `setup.js` module _before_ running the `greet.test.js`. This way the `test()` and `expect()` functions are globally available in the test.
+> I am using the `--import` option in Node.js to load the `setup.ts` module _before_ running `greet.test.ts`. This makes the `test()` and `expect()` functions globally available in the test's _runtime_.

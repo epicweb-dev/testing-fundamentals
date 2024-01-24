@@ -4,10 +4,10 @@
 
 > Fail-first approach is also prominent in Test-Driven Development (TDD), where you write tests for your code, watch them all fail, and slowly make your way up to them passing.
 
-Let's run our `greet.js` file now and see what happens.
+Let's run our `greet.ts` file now and see what happens.
 
 ```sh
-node greet.js
+npx tsx greet.ts
 ```
 
 Oh! Suddenly, the process exits with an error:
@@ -18,4 +18,4 @@ Error: Expected message to equal to "Hello, John!" but got "Howdy, John!"
 
 This is our test throwing an error to let us know that something doesn't seem right. If you take a closer look at the error message, you can spot that the greeting string returned from the `greet` function is different from what we expected. That's precisely why we need tests—to tell us _when_ and _what_ goes wrong.
 
-👨‍💼 In this exercise, you have to fix this problem and make the test pass again (have the `node greet.js` exit without errors).
+👨‍💼 In this exercise, you have to fix this problem and make the test pass again (have the `npx tsx greet.ts` exit without errors).
