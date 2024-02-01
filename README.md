@@ -31,6 +31,7 @@ automated testing, as well as expand on the concepts and practices we will be
 covering during the workshop.
 
 - [**The True Purpose of Testing**](https://www.epicweb.dev/the-true-purpose-of-testing)
+- [Anatomy of a Test](https://www.epicweb.dev/anatomy-of-a-test)
 - [The Golden Rule of Assertions](https://www.epicweb.dev/the-golden-rule-of-assertions)
 
 ## System Requirements
