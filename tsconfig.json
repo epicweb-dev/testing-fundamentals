@@ -17,6 +17,51 @@
       "path": "exercises/01.principles/02.solution.implementation-details"
     },
     {
+      "path": "exercises/02.test-structure/01.problem.assertions",
+    },
+    {
+      "path": "exercises/02.test-structure/01.solution.assertions",
+    },
+    {
+      "path": "exercises/02.test-structure/02.problem.test-blocks",
+    },
+    {
+      "path": "exercises/02.test-structure/02.solution.test-blocks",
+    },
+    {
+      "path": "exercises/02.test-structure/03.problem.test-files",
+    },
+    {
+      "path": "exercises/02.test-structure/03.solution.test-files",
+    },
+    {
+      "path": "exercises/02.test-structure/04.problem.hooks",
+    },
+    {
+      "path": "exercises/02.test-structure/04.solution.hooks",
+    },
+    {
+      "path": "exercises/03.async/01.problem.await",
+    },
+    {
+      "path": "exercises/03.async/01.solution.await",
+    },
+    {
+      "path": "exercises/03.async/02.problem.rejections",
+    },
+    {
+      "path": "exercises/03.async/02.solution.rejections",
+    },
+    {
+      "path": "exercises/03.async/03.problem.waitFor",
+    },
+    {
+      "path": "exercises/03.async/03.solution.waitFor",
+    },
+    {
+      "path": "exercises/04.vitest/01.problem.using-vitest"
+    },
+    {
       "path": "exercises/04.vitest/01.solution.using-vitest"
     }
   ]
