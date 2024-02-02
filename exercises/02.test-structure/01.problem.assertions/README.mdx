@@ -14,13 +14,13 @@ We don't have any special setup to test the `greet` function. The setup phase is
 
 Our action for this test is to call the `greet` function with the `'John'` string as the argument.
 
-<CodeFile file="greet.js" range="9" nocopy />
+<CodeFile file="greet.ts" range="9" nocopy />
 
 ### Assertion
 
 And our assertion is a simple `if` statement that compares the actual `message` with the message we expect to be returned (`'Hello, John!'`).
 
-<CodeFile file="greet.js" range="11-15" nocopy />
+<CodeFile file="greet.ts" range="11-15" nocopy />
 
 ## The problem
 
@@ -30,7 +30,7 @@ First, it's _imperative_. We instruct the code _how_ to do things instead of dec
 
 Second, it's _repetitive_. This may not be as evident right now, but consider what happens if we have to test a new function called `congratulate`:
 
-```js filename=greet.js lines=11-15,18-22 nocopy
+```js filename=greet.ts lines=11-15,18-22 nocopy
 function greet(name) {
 	return `Hello, ${name}!`
 }
