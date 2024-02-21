@@ -27,7 +27,7 @@
   "author": "Artem Zakharchenko <me@kettanaito.com> (https://kettanaito.com/)",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@kentcdodds/workshop-app": "^3.2.0"
+    "@kentcdodds/workshop-app": "^3.3.0"
   },
   "eslintIgnore": [
     "/node_modules",
