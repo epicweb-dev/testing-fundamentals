@@ -13,7 +13,21 @@ In this exercise, let's migrate to Vitest together.
 npm install vitest --save-dev
 ```
 
-🐨 Next, <InlineFile file="vitest.config.ts">Click here to create the `vitest.config.ts` file</InlineFile>
+Next, go to `tsconfig.json` and add `"vitest/globals"` to the `"compilerOptions.types"` key:
+
+```diff
+{
+  "compilerOptions": {
++    "types": ["vitest/globals"]
+  }
+}
+```
+
+This will tell TypeScript where to look for the type definitions for the global functions like `test()`, `expect()`, and `beforeAll()`.
+
+To complete the global API setup, we also need to expose the _runtime implementation_ for those global functions.
+
+🐨 To do so, <InlineFile file="vitest.config.ts">Click here to create the `vitest.config.ts` file</InlineFile>
 
 And paste the following config in there:
 

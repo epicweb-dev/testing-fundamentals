@@ -38,7 +38,7 @@ test('returns a congratulation message for the given name', () => {
 
 // 🐨 Create a "waitFor()" function that accepts a single argument:
 // a "callback" function.
-// 💰 function waitFor(callback) {}
+// 💰 async function waitFor(callback: () => void, maxRetries = 5) {}
 
 // 🐨 In the "waitFor()" function, call the "callback" function.
 // - If it doesn't throw, return.
@@ -46,6 +46,7 @@ test('returns a congratulation message for the given name', () => {
 // - Retry the callback 5 times. If it still throws,
 // throw the last thrown error as-is.
 // 💰 Use a "while" loop and an early return to break it.
+// let retries = 0
 // while (retries < maxRetries) {
 //   try {
 //     retries++
