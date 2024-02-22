@@ -4,7 +4,7 @@ export function greet(name: string) {
 	return `Hello, ${name}! Happy, ${weekday}.`
 }
 
-export async function greetByResponse(response?: Response) {
+export async function greetByResponse(response: Response) {
 	if (typeof response === 'undefined') {
 		throw new Error('Failed to greet the user: no user response provided')
 	}
