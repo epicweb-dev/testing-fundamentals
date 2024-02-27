@@ -10,7 +10,7 @@ Next, I extend the object returned from the `globalThis.expect` function to have
 
 <CodeFile file="setup.ts" range="15-23" highlight="22-23" />
 
-Although the `actual` value we be a Promise in our case, we can pass _anything_ to the `expect()` function. If we assume it's a Promise, and write `actual.catch()`, TypeScript will kindly warn us that `actual` is `unknown`, and it doesn't necessarily have the `.then()`/`.catch()` methods a Promise has.
+Although the `actual` value will be a Promise in our case, we can pass _anything_ to the `expect()` function. If we assume it's a Promise, and write `actual.catch()`, TypeScript will kindly warn us that `actual` is `unknown`, and it doesn't necessarily have the `.then()`/`.catch()` methods a Promise has.
 
 I make sure that the passed `actual` value is the instance of Promise:
 
