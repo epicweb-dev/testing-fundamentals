@@ -41,6 +41,8 @@ afterAll(() => {
 })
 ```
 
+> 📜 The [Proxy API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) in JavaScript allows you to spy on any object. In our case, we will spy on the constructor calls to the `Date` global object and make it return the same date consistently.
+
 ## The Golden Rule of Assertions
 
 This problem illustrates the importance of the testing setup for the quality of your tests. Our code does what it was inteded to do but the tests still fail. When that happens, you know you've got a _bad test_. Turns out, such tests don't pass _The Golden Rule of Assertions_:
