@@ -23,13 +23,13 @@ It's going to involve moving code around but don't worry, Kody the Koala is here
 
 🐨 Once the `greet.test.ts` file is created, move the existing tests from `greet.ts` there.
 
-Next, you have to make the `test()` and `expect()` functions be available _globally_ for the `greet.test.ts` file. To do that, use the `--loader` option on the Node.js CLI.
+Next, you have to make the `test()` and `expect()` functions be available _globally_ for the `greet.test.ts` file. To do that, use the `--import` option on the Node.js CLI.
 
 🐨 To start, <InlineFile file="setup.ts">Click here to create the `setup.ts` file</InlineFile>
 
 Then, move the declaration for the `test()` and `expect()` functions to the newly created `setup.ts` file.
 
-Finally, to run the tests, use the `--loader` option of the Node.js CLI to reference the `setup.ts` as a global file to include:
+Finally, to run the tests, use the `--import` option of the Node.js CLI to reference the `setup.ts` as a global file to include:
 
 ```sh
 npx tsx --import ./setup.ts greet.test.ts

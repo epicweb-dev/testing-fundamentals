@@ -10,7 +10,7 @@ npx tsx greet.ts
 Error: Expected Hello, ${name}! to equal to Hello, John!
 ```
 
-We can see a failing assertion but never points us to the problematic code or even test. We can likely guess the issue is with the `greet()` function based on the expected string but that assumption is only viable because we have just two tests at the moment. But what will happen once we have three, thirty, three hundred tests? Suddenly, we can't assume anymore and have to spend a lot of time trying to _debug the test_ instead of _fixing the issue_.
+We can see a failing assertion but it never points us to the problematic code or even the test. We can likely guess the issue is with the `greet()` function based on the expected string but that assumption is only viable because we have just two tests at the moment. But what will happen once we have three, thirty, three hundred tests? Suddenly, we can't assume anymore and have to spend a lot of time trying to _debug the test_ instead of _fixing the issue_.
 
 More to that, since both assertions are in the same scope, if the first one throws, the second will never even run!
 
