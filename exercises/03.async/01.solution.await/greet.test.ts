@@ -17,7 +17,7 @@ test('returns a greeting message for the given name', () => {
 })
 
 test('returns a greeting message for the given user response', async () => {
-	const response = Response.json({ name: 'Patrick' })
+	const response = Response.json({ firstName: 'Patrick' })
 	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
 })
 

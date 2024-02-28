@@ -6,7 +6,7 @@ export function greet(name: string) {
 
 export async function greetByResponse(response: Response) {
 	const user = await response.json()
-	return greet(user.name)
+	return greet(user.firstName)
 }
 
 export function congratulate(name: string) {

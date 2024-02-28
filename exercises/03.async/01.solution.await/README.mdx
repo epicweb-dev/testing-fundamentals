@@ -17,17 +17,32 @@ If I run the tests now, I can correctly see the assertion on `greetByResponse()`
 Error: Expected Hello, undefined! Happy, Monday. to equal to Hello, Patrick! Happy, Monday.
 ```
 
-The rejected assertion message seems to include `undefined` instead of the user's first name. Maybe the way we access the name on the user response is incorrect? I jump to the `greetByResponse()` implementation and, indeed, I can see we are accessing `user.firstName` instead of `user.name`.
+The rejected assertion message mentions `undefined` instead of the user's first name. If I take a look at the mocked response, it has the `{ name: string }` structure while the `greetByResponse()` function expects the response shape to be `{ firstName: string }`. The keys for the first name don't match! But who's right here—the test or the tested code?
 
-```ts remove=3 add=4
-export async function greetByResponse(response) {
-	const user = await response.json()
-	return greet(user.firstName)
-	return greet(user.name)
-}
+In the previous exercises, you've learned that you should always treat test assertions as the source of truth. In this case, however, the assertion itself has nothing to do with the actual problem:
+
+```ts filename=greet.test.ts nocopy nonumber highlight=3
+test('returns a greeting message for the given user response', async () => {
+	const response = Response.json({ name: 'Patrick' })
+	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
+})
+```
+
+Instead, the root of the problem is in how we've constructed the mocked response in the test. I will resolve the issue by making sure that the mocked response I've prepared matched in shape to the one expected by the `greetByResponse()` function.
+
+```ts filename=greet.test.ts nocopy remove=2 add=3
+test('returns a greeting message for the given user response', async () => {
+	const response = Response.json({ name: 'Patrick' })
+	const response = Response.json({ firstName: 'Patrick' })
+	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
+})
 ```
 
 With the fix in place, I re-run the tests to see them all pass:
+
+```sh nonumber
+npx tsx --import ./setup.ts greet.test.ts
+```
 
 ```txt nocopy nonumber
 ✓ returns a greeting message for the given name
