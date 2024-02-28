@@ -19,7 +19,7 @@ function greet(name: string) {
 
 With the fix in place, I re-run the tests to see them pass! :tada:
 
-```sh
+```sh nonumber
 npx tsx greet.ts
 ```
 
@@ -29,10 +29,10 @@ You may be wondering why the right course of action here is to change the implem
 
 To that, I want to share a quote with you:
 
-<callout-info class="important">Implementations change but intentions stay the same.</callout-info>
+<callout-info class="important">The implementation may change but the intention stays the same.</callout-info>
 
 You write tests to cement the intentions you have. Deciphering those intentions from ther source code alone can proof challenging and, at times, dangerous. Remember that the code you are working with _may not have been written by you_. It could've been a colleague who's now on vacation, or have left the company long before you joined. But you have to debug and fix the code right now. For that, you have to know what was the intention behind that code.
 
 This is where automated tests can be a life-changing factor. They act as a partial documentation for the code, and make things like code refactoring (i.e. changing the implementation) _much_ easier.
 
-🦉 Intention plays a crucial rule in [The True Purpose of Testing](https://www.epicweb.dev/the-true-purpose-of-testing). Remember: the implementations may change but the intentions stay the same.
+🦉 There's a great rule to help you identify the cases when you may be testing implementation details. It's called [The Golden Rule of Assertions](https://www.epicweb.dev/the-golden-rule-of-assertions). I highly recommend you read about it!
