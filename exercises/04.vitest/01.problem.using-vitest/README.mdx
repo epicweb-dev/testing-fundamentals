@@ -7,7 +7,11 @@ Once you have the knack of how testing frameworks work, adopting one should be a
 
 In this exercise, let's migrate to Vitest together.
 
-🐨 First, install Vitest by opening your terminal and running this command:
+💣 First, let's delete the `setup.ts` file!
+
+Gone. The purpose of that file was to implement our own tiny testing framework but since we are replacing it with Vitest now, it will provide us with the functionalities we had in `setup.ts` out of the box (like the `test()` and `expect()` functions).
+
+🐨 Next, install `vitest` by opening your terminal and running this command:
 
 ```sh nonumber
 npm install vitest --save-dev

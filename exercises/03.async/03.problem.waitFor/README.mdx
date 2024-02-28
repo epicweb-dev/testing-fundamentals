@@ -12,9 +12,16 @@ In this exercise, we are introducing a `NotificationManager`—a class responsib
 
 We can follow our hunch and write a test like this:
 
-<CodeFile file="greet.test.ts" range="39-44" />
+```ts nonumber nocopy
+test('displays a notification when a new user joins', () => {
+	const manager = new NotificationManager()
+	manager.showNotification(Response.json({ firstName: 'Kate' }))
 
-Only this won't work at all. Since reading the user response is _asynchronous_, it won't finish by the time we reach the `expect()` line. The notification simply won't be present in the array yet.
+	expect(manager.notifications[0]).toBe('Hello, Kate! Happy, Monday.')
+})
+```
+
+Only this won't work at all. Since reading the user response is _asynchronous_, it won't finish by the time we reach the `expect()` line. The notification simply won't be present in the `manager.notifications` yet.
 
 What we need is to _wait for notification_ but the `NotificationManager` class doesn't give us any means to do that directly. The only thing it gives us is the current state of the `notifications` array.
 

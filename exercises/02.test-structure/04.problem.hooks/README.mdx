@@ -21,7 +21,7 @@ To handle side effects such as this one, tests often have the concept of "hooks"
 - `beforeAll()`, which accepts a callback argument and runs it before all tests;
 - `afterAll()`, which accepts a callback argument and runs it after the tests are done.
 
-<callout-info>You can treat the process `exit` event as the indicator that all tests are done.</callout-info>
+<callout-info>You can treat the `beforeExit` event of the Node.js process as the indicator that all tests are done.</callout-info>
 
 Once you do, add a `beforeAll()` hook to the `greet.test.js` to patch the `globalThis.Date` constructor and return a fixed date from it. Make sure to undo the patch after the tests to keep the test environment clean. And, of course, make sure the tests are passing.
 
@@ -41,10 +41,12 @@ afterAll(() => {
 })
 ```
 
+> 📜 The [Proxy API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) in JavaScript allows you to spy on any object. In our case, we will spy on the constructor calls to the `Date` global object and make it return the same date consistently.
+
 ## The Golden Rule of Assertions
 
 This problem illustrates the importance of the testing setup for the quality of your tests. Our code does what it was inteded to do but the tests still fail. When that happens, you know you've got a _bad test_. Turns out, such tests don't pass _The Golden Rule of Assertions_:
 
 <callout-success class="important">A test must fail if, and only if, the intention behind the system is not met.</callout-success>
 
-📜 It's a fantastic rule to keep in mind when writing tests. Learn more about [The Golden Rule of Assertion](https://www.epicweb.dev/the-golden-rule-of-assertions) and how it can help you write better tests every single tim.
+🦉 It's a fantastic rule to keep in mind when writing tests. Learn more about [The Golden Rule of Assertion](https://www.epicweb.dev/the-golden-rule-of-assertions) and how it can help you write better tests every single tim.
