@@ -21,7 +21,7 @@ To handle side effects such as this one, tests often have the concept of "hooks"
 - `beforeAll()`, which accepts a callback argument and runs it before all tests;
 - `afterAll()`, which accepts a callback argument and runs it after the tests are done.
 
-<callout-info>You can treat the process `exit` event as the indicator that all tests are done.</callout-info>
+<callout-info>You can treat the `beforeExit` event of the Node.js process as the indicator that all tests are done.</callout-info>
 
 Once you do, add a `beforeAll()` hook to the `greet.test.js` to patch the `globalThis.Date` constructor and return a fixed date from it. Make sure to undo the patch after the tests to keep the test environment clean. And, of course, make sure the tests are passing.
 
