@@ -3,7 +3,11 @@
   "private": true,
   "kcd-workshop": {
     "title": "Testing Fundamentals",
-    "githubRoot": "https://github.com/epicweb-dev/testing-fundamentals"
+    "githubRoot": "https://github.com/epicweb-dev/testing-fundamentals",
+    "forms": {
+			"exercise": "https://docs.google.com/forms/d/e/1FAIpQLSf8xpntKQzPYYO9H1OvMcxEa224PqmhVeYfUSj_MotHy-fSUQ/viewform?usp=pp_url&entry.1709952199=Testing+Fundamentals",
+      "workshop": "https://docs.google.com/forms/d/e/1FAIpQLSd4xYc0qW-q3vXbVh2YoU4i3OVinvUdOs3kpkEi5WKmxPu5ew/viewform?usp=pp_url&entry.1709952199=Testing+Fundamentals"
+    }
   },
   "type": "module",
   "scripts": {
