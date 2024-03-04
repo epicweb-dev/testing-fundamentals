@@ -16,9 +16,9 @@ The `afterAll` function will be a bit different. To invoke the `callback` once t
 
 Then, I go to the `greet.test.ts` and add the `beforeAll()` hook that patches the global `Date` constructor and uses the stored `OriginalDate` class to create a fixed date.
 
-<CodeFile file="greet.test.ts" range="3-9" highlight="4,7-9" />
+<CodeFile file="greet.test.ts" range="3-9" highlight="3,6-8" />
 
-Similarly, I make sure to clean up this patch in the `afterAll()` hook:
+Similarly, I make sure to clean up this `Date` mock in the `afterAll()` hook:
 
 <CodeFile file="greet.test.ts" range="11-13" highlight="12" />
 

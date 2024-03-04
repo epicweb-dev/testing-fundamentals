@@ -5,16 +5,16 @@ import {
 	NotificationManager,
 } from './greet.js'
 
-const DateProxy = Proxy.revocable(globalThis.Date, {
-	construct: Date => new Date('2024-01-01'),
-})
+const OriginalDate = globalThis.Date
 
 beforeAll(() => {
-	globalThis.Date = DateProxy.proxy
+	globalThis.Date = new Proxy(globalThis.Date, {
+		construct: () => new OriginalDate('2024-01-01'),
+	})
 })
 
 afterAll(() => {
-	DateProxy.revoke()
+	globalThis.Date = OriginalDate
 })
 
 test('returns a greeting message for the given name', () => {
