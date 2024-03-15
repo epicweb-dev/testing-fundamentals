@@ -1,5 +1,5 @@
 function greet(name: string) {
-	// 🐨 Looks like someone has tempered with the implementation...
+	// 🐨 Looks like someone has changed the implementation...
 	return `Howdy, ${name}!`
 }
 
