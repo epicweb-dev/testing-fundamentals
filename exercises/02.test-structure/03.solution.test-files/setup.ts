@@ -7,7 +7,7 @@ declare global {
 	var test: (title: string, callback: () => void) => void
 }
 
-globalThis.expect = function (actual: unknown) {
+globalThis.expect = function (actual) {
 	return {
 		toBe(expected: unknown) {
 			if (actual !== expected) {
