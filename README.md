@@ -78,7 +78,8 @@ npm run setup
 If you experience errors here, please open [an issue][issue] with as many
 details as you can offer.
 
-> [!IMPORTANT] Don't forget to run the `npm run setup` step!
+> [!IMPORTANT]
+> Don't forget to run the `npm run setup` step!
 
 ## Exercises
 
