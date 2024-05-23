@@ -1,14 +1,32 @@
-# Promise rejections
+# Handling Promise Rejections
+
+<EpicVideo url="https://www.epicweb.dev/workshops/testing-fundamentals/testing-asynchronous-code/error-assertions-for-rejected-promises/solution" />
 
 The first thing to realize is that with the `.rejects.toThrow()` API we are creating _a chain_. The `rejects` part becomes a property that returns another object with the `.toThrow()` function. I reflect this in the `Assertions` type straight away:
 
-<CodeFile file="setup.ts" range="1-6" highlight="3-5" />
+```typescript
+interface Assertions {
+	toBe(expected: unknown): void
+	rejects: {
+		toThrow(expected: Error): Promise<void>
+	}
+}
+```
 
 > Note that the `.rejects.toThrow()` assertion will be returning a Promise. Annotate its return type accordingly (`Promise<void>`).
 
 Next, I extend the object returned from the `globalThis.expect` function to have the `rejects` property. In that property, I define a new `toThrow` function.
 
-<CodeFile file="setup.ts" range="15-23" highlight="22-23" />
+```typescript
+globalThis.expect = function (actual: unknown) {
+	return {
+		toBe(expected: unknown) {
+			if (actual !== expected) {
+				throw new Error(`Expected ${actual} to equal to ${expected}`)
+			}
+		},
+		rejects: {
+```
 
 Although the `actual` value will be a Promise in our case, we can pass _anything_ to the `expect()` function. If we assume it's a Promise, and write `actual.catch()`, TypeScript will kindly warn us that `actual` is `unknown`, and it doesn't necessarily have the `.then()`/`.catch()` methods a Promise has.
 

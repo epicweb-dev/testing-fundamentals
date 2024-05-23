@@ -1,4 +1,6 @@
-# Awaiting side effects
+# Testing with Async Side Effects
+
+<EpicVideo url="https://www.epicweb.dev/workshops/testing-fundamentals/testing-asynchronous-code/testing-with-async-side-effects" />
 
 The asynchronous nature of some behaviors may be hidden from us. For example, when using React, we can update the state in response to a user request but the actual state transition cannot be accessed in test (e.g. to be awaited). It happens as a _side effect_. The thing is, we still have the intention we want to test coupled with that incaccessible side effect, so we need to account for it somehow.
 
