@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const here = (...p) => path.join(__dirname, ...p)
-const VERBOSE = false
-const logVerbose = (...args) => (VERBOSE ? console.log(...args) : undefined)
+// const VERBOSE = false
+// const logVerbose = (...args) => (VERBOSE ? console.log(...args) : undefined)
 
 const workshopRoot = here('..')
 const examples = (await readDir(here('../examples'))).map(dir =>
@@ -92,7 +92,7 @@ async function updateRootTsConfig() {
 }
 
 async function copyExerciseTsConfigs() {
-	const exercisesWithoutTsCongif = exerciseApps.filter((exercisePath) => {
+	const exercisesWithoutTsCongif = exerciseApps.filter(exercisePath => {
 		return !fs.existsSync(path.join(exercisePath, 'tsconfig.json'))
 	})
 
@@ -105,10 +105,12 @@ async function copyExerciseTsConfigs() {
 		'utf8',
 	)
 
-	await Promise.all(exercisesWithoutTsCongif.map((exercisePath) => {
-		const tsConfigPath = path.resolve(exercisePath, 'tsconfig.json')
-		return fs.promises.writeFile(tsConfigPath, tsConfigTemplate)
-	}))
+	await Promise.all(
+		exercisesWithoutTsCongif.map(exercisePath => {
+			const tsConfigPath = path.resolve(exercisePath, 'tsconfig.json')
+			return fs.promises.writeFile(tsConfigPath, tsConfigTemplate)
+		}),
+	)
 }
 
 async function copyExercisePrettierConfigs() {
@@ -116,10 +118,12 @@ async function copyExercisePrettierConfigs() {
 		path.join(workshopRoot, '.prettierrc'),
 		'utf8',
 	)
-	await Promise.all(exerciseApps.map(exercise => {
-		const prettierConfigPath = path.join(exercise, '.prettierrc')
-		return fs.promises.writeFile(prettierConfigPath, prettierConfig)
-	}))
+	await Promise.all(
+		exerciseApps.map(exercise => {
+			const prettierConfigPath = path.join(exercise, '.prettierrc')
+			return fs.promises.writeFile(prettierConfigPath, prettierConfig)
+		}),
+	)
 }
 
 async function writeIfNeeded(filepath, content) {
@@ -135,7 +139,7 @@ function exists(p) {
 	try {
 		fs.statSync(p)
 		return true
-	} catch (error) {
+	} catch {
 		return false
 	}
 }
