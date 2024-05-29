@@ -1,4 +1,6 @@
-# Promise rejections
+# Promise Rejections
+
+<EpicVideo url="https://www.epicweb.dev/workshops/testing-fundamentals/testing-asynchronous-code/error-assertions-for-rejected-promises/solution" />
 
 The first thing to realize is that with the `.rejects.toThrow()` API we are creating _a chain_. The `rejects` part becomes a property that returns another object with the `.toThrow()` function. I reflect this in the `Assertions` type straight away:
 

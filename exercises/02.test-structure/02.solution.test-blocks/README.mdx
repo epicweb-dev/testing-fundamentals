@@ -1,4 +1,6 @@
-# Test blocks
+# Test Blocks
+
+<EpicVideo url="https://www.epicweb.dev/workshops/testing-fundamentals/test-structure/isolating-tests-with-test-blocks/solution" />
 
 I start with defining the `title` and `callback` arguments on the `test()` function. Those will represent the _test's title_ and the _test itself_, respectively. Next, I invoke the `callback()` function, which will run whichever test we provide. Since failed assertions throw errors, I wrap the `callback()` in a `try/catch` block to prevent the process from exiting on failed assertions and also to print those nicely in the terminal's output.
 
