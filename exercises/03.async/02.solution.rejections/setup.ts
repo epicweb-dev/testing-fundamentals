@@ -25,17 +25,18 @@ globalThis.expect = function (actual: unknown) {
 					throw new Error(`Expected ${actual} to be a promise`)
 				}
 
-				return actual
-					.then(() => {
+				return actual.then(
+					() => {
 						throw new Error(`Expected ${actual} to reject but it didn't`)
-					})
-					.catch(error => {
+					},
+					error => {
 						if (error.message !== expected.message) {
 							throw new Error(
 								`Expected ${error.message} to equal to ${expected.message}`,
 							)
 						}
-					})
+					},
+				)
 			},
 		},
 	}

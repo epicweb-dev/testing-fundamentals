@@ -20,9 +20,36 @@ I make sure that the passed `actual` value is the instance of Promise:
 
 Now that we are always asserting on a Promise, I will make sure it rejects, and compare the expected and the actual error messages once it does.
 
-<CodeFile file="setup.ts" range="22-40" highlight="29-38" />
+```ts nonumber lines=7-11
+rejects: {
+  toThrow(expected) {
+    if (!(actual instanceof Promise)) {
+			throw new Error(`Expected ${actual} to be a promise`)
+		}
 
-> To handle false-positive scenarios, I add a `.then()` callback that always throws. This means that if the given `actual` promise resolves, the `expect(actual).rejects.toThrow()` assertion will reject, which is exactly what we want.
+    return actual.catch((error) => {
+      if (error.message !== expected.message) {
+        throw new Error(`Expected error message to be ${error.message} but got ${expected}`)
+      }
+    })
+  }
+}
+```
+
+<callout-warning>In the video, I made a mistake at 02:00! The handling of fasle-positive scenarios must be done via `.then(onFulfilled, onRejected)` callback, not via the `.then().catch()` chaining. See the correct implementation below, and feel free to skip to 02:28 to watch the rest of the solution.</callout-warning>
+
+To handle the unwanted cases when the `actual` promise resolves, I will replace the `.catch()` callback with a single `.then()` callback, providing it with two arguments:
+
+```ts remove=1 add=2
+return actual.catch(onRejected)
+return actual.then(onFulfilled, onRejected)
+```
+
+The `onFulfilled` function will be executed when the `actual` promise resolves, and I will throw an error if that happens. The `onRejected` function will be the same we've provided to the `.catch()` method before.
+
+<CodeFile file="setup.ts" range="22-40" highlight="29-31" />
+
+> Using a single `.then()` callback allow me to handle the promise fulfillment/rejection _without introducing a chain_. You can learn more about why this is important in [this issue](https://github.com/epicweb-dev/testing-fundamentals/issues/17).
 
 Finally, I change the test case to use the newly created `.rejects.toThrow()` assertion and provide the expected error:
 
