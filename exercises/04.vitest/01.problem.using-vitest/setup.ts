@@ -7,7 +7,7 @@ interface Assertions {
 
 declare global {
 	var expect: (actual: unknown) => Assertions
-	var test: (title: string, callback: () => void) => void
+	var test: (title: string, callback: () => void | Promise<void>) => void
 	var beforeAll: (callback: () => void) => void
 	var afterAll: (callback: () => void) => void
 }
