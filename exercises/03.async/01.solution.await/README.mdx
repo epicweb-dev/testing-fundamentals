@@ -10,6 +10,10 @@ This will allow me to await the `callback()` if it happens to be `async` too.
 
 <CodeFile file="setup.ts" range="22-26" highlight="24" />
 
+<callout-info>To let TypeScript know that `callback` is now, potentially, an asynchronous function, I will adjust its return type to include `Promise<void>`:</callout-info>
+
+<CodeFile file="setup.ts" range="5-10" highlight="7" />
+
 If I run the tests now, I can correctly see the assertion on `greetByResponse()` failing the relevant test:
 
 ```txt nocopy nonumber lines=3-4
