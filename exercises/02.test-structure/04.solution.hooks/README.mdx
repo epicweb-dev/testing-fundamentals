@@ -20,6 +20,8 @@ Then, I go to the `greet.test.ts` and add the `beforeAll()` hook that patches th
 
 <CodeFile file="greet.test.ts" range="3-9" highlight="3,6-8" />
 
+<callout-warning>I recommend providing an entire UTC date, including an explicit timezone, as the value of the mocked date to have a resilient test setup: `new OriginalDate('2024-01-01 00:00:00.000Z')`</callout-warning>
+
 Similarly, I make sure to clean up this `Date` mock in the `afterAll()` hook:
 
 <CodeFile file="greet.test.ts" range="11-13" highlight="12" />
