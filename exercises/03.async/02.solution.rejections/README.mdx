@@ -36,7 +36,7 @@ rejects: {
 }
 ```
 
-<callout-warning>In the video, I made a mistake at 02:00! The handling of fasle-positive scenarios must be done via `.then(onFulfilled, onRejected)` callback, not via the `.then().catch()` chaining. See the correct implementation below, and feel free to skip to 02:28 to watch the rest of the solution.</callout-warning>
+<callout-warning>In the video, I made a mistake at 02:00! The handling of false-positive scenarios must be done via `.then(onFulfilled, onRejected)` callback, not via the `.then().catch()` chaining. See the correct implementation below, and feel free to skip to 02:28 to watch the rest of the solution.</callout-warning>
 
 To handle the unwanted cases when the `actual` promise resolves, I will replace the `.catch()` callback with a single `.then()` callback, providing it with two arguments:
 
