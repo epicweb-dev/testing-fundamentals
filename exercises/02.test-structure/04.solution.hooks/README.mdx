@@ -10,7 +10,7 @@ Then, I implement the `beforeAll()` function, which invokes the given `callback`
 
 <CodeFile file="setup.ts" range="32-34" highlight="33" />
 
-<callout-warning>Here, I'm relying that the `beforeAll()` function will be called _before_ any individual tests. Actual testing frameworks usually have a runner responsible for internally orchestrating hooks and tests regardless of the invocation order.</callout-warning>
+<callout-warning>Here, I'm relying on the fact that the `beforeAll()` function will be called _before_ any individual tests. Actual testing frameworks usually have a runner responsible for internally orchestrating hooks and tests regardless of the invocation order.</callout-warning>
 
 The `afterAll` function will be a bit different. To invoke the `callback` once the tests are done, I will utilize the `beforeExit` event of a Node.js process to let me know when the test run is about to exit.
 
