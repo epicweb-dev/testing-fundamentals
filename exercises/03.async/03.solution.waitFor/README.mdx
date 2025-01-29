@@ -4,13 +4,41 @@
 
 I implement the `waitFor` function as a `while` loop, taking advantage of the `async` prefix, which means the function always returns a promise even if I don't explicitly say so. That way, I can utilize `return` to fulfill that promise, and `throw` to reject it at any point of execution.
 
-<CodeFile file="greet.test.ts" range="39-56" highlight="47,50" />
+```ts filename=greet.test.ts highlight=9,12 nonumber
+async function waitFor(callback: () => void) {
+	let retries = 0
+	const maxRetries = 5
+
+	while (retries < maxRetries) {
+		try {
+			retries++
+			callback()
+			return
+		} catch (error) {
+			if (retries === maxRetries) {
+				throw error
+			}
+
+			await new Promise(resolve => setTimeout(resolve, 250))
+		}
+	}
+}
+```
 
 > There are countless ways to implement the `waitFor` function. It's okay if your implementation is different from mine. As long as the intention behind it is fulfilled, it's correct (hey, doesn't that sound oddly familiar?)
 
 Next, I wrap the notification message assertion from our test in the `waitFor` block and make sure to `await` it:
 
-<CodeFile file="greet.test.ts" range="58-65" highlight="62-64" />
+```ts filename=greet.test.ts highlight=5-7 nonumber
+test('displays a notification when a new user joins', async () => {
+	const manager = new NotificationManager()
+	manager.showNotification(Response.json({ firstName: 'Kate' }))
+
+	await waitFor(() => {
+		expect(manager.notifications[0]).toBe('Hello, Kate! Happy, Monday.')
+	})
+})
+```
 
 ## `waitFor` vs `sleep`
 

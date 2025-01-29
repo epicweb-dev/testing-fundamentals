@@ -16,13 +16,21 @@ We don't have any special setup to test the `greet` function. The setup phase is
 
 Our action for this test is to call the `greet` function with the `'John'` string as the argument.
 
-<CodeFile file="greet.ts" range="9" nocopy />
+```ts filename=greet.ts nocopy nonumber
+let message = greet('John')
+```
 
 ### Assertion
 
 And our assertion is a simple `if` statement that compares the actual `message` with the message we expect to be returned (`'Hello, John!'`).
 
-<CodeFile file="greet.ts" range="11-15" nocopy />
+```ts filename=greet.ts nocopy nonumber
+if (message !== 'Hello, John!') {
+	throw new Error(
+		`Expected message to equal to "Hello, John!" but got "${message}"`,
+	)
+}
+```
 
 ## The problem
 

@@ -4,11 +4,16 @@
 
 In our application, we use the `greet()` function a lot in conjunction with fetching the user from a server. To simplify this usage, we've introduced a new function called `greetByResponse()` that accepts a Fetch API `Response` instance representing the user response from the server.
 
-<CodeFile file="greet.ts" range="7-10" nocopy />
+```ts filename=greet.ts nonumber nocopy
+export async function greetByResponse(response: Response) {
+	const user = await response.json()
+	return greet(user.firstName)
+}
+```
 
 So now, whenever we need to greet a fetched user, we can use this new function:
 
-```ts nocopy
+```ts nocopy nonumber
 fecth('/api/user')
 	.then(response => greetByResponse(response))
 	.then(greeting => render(greeting))
@@ -16,7 +21,12 @@ fecth('/api/user')
 
 Next, we've added a test case for the `greetByResponse()` function. Since it's marked as `async`, it will return a promise when run. We will account for that promise by making the test callback `async` and `await`'ing the result of the `greetByResponse()` function call in the test:
 
-<CodeFile file="greet.test.ts" range="19-22" highlight="19,21" nocopy />
+```ts filename=greet.test.ts highlight=1,3 nocopy nonumber
+test('returns a greeting message for the given user response', async () => {
+	const response = Response.json({ name: 'Patrick' })
+	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
+})
+```
 
 All the tests are passing once we run them but there's also some assertion error printed _after_ the tests. It looks suspiciously related to `greetByResponse()`.
 

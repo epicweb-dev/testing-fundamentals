@@ -4,11 +4,21 @@
 
 One day, our Peter the Project Manager comes to us with a great idea to improve the app. He suggests that we wish our users a happy day as a part of the greeting message (a bit of kindness goes a long way). That sounds easy enough, and so we change the `greet()` function to reflect that suggestion:
 
-<CodeFile file="greet.ts" range="1-5" highlight="4" />
+```ts filename=greet.ts highlight=4 nonumber
+export function greet(name: string) {
+	const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' })
+
+	return `Hello, ${name}! Happy, ${weekday}.`
+}
+```
 
 Since the intention behind the code has changed (now it also includes the day of the week), we should adjust the relevant tests to capture that:
 
-<CodeFile file="greet.test.ts" range="26-28" highlight="27" />
+```ts filename=greet.ts highlight=2 nonumber
+test('returns a greeting message for the given name', () => {
+	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
+})
+```
 
 The issue with this test is that it will only pass on Mondays! That won't do. We need a _deterministic_ test, no matter where or when we run it. To fix this, let's first understand why this happens.
 

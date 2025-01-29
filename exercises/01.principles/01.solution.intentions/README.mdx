@@ -4,11 +4,19 @@
 
 To get started, I will call the `greet` function with the name `"John"` and store the result in a new variable called `message`.
 
-<CodeFile file="greet.ts" range="5" />
+```ts filename=greet.ts nonumber
+let message = greet('John')
+```
 
 With this argument, I expect the `greet` function to return a `"Hello, John!"` string. I will compare the actual `message` it returns with the expected (intended) message, and if they don't match, throw an error that lets me know something is off with the function.
 
-<CodeFile file="greet.ts" range="7-9" highlight="8" />
+```ts filename=greet.ts highlight=2-4 nonumber
+if (message !== 'Hello, John!') {
+	throw new Error(
+		`Expected message to equal to "Hello, John!" but got "${message}"`,
+	)
+}
+```
 
 :tada: Congratulations! You've just written the most basic automated test.
 

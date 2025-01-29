@@ -4,7 +4,16 @@
 
 In our `greetByResponse()` function, let's add a check that the given `response` is defined. If it's not, we should throw an error, letting the consumer know that they passed an invalid argument to that function.
 
-<CodeFile file="greet.ts" range="7-14" highlight="8-10" />
+```ts filename=greet.ts highlight=2-4 nonumber
+export async function greetByResponse(response: Response) {
+	if (typeof response === 'undefined') {
+		throw new Error('Failed to greet the user: no user response provided')
+	}
+
+	const user = await response.json()
+	return greet(user.firstName)
+}
+```
 
 This is a new intention so we need to add a new test for it.
 
