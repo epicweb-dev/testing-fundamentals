@@ -4,19 +4,42 @@
 
 The first thing to realize is that with the `.rejects.toThrow()` API we are creating _a chain_. The `rejects` part becomes a property that returns another object with the `.toThrow()` function. I reflect this in the `Assertions` type straight away:
 
-<CodeFile file="setup.ts" range="1-6" highlight="3-5" />
+```ts filename=setup.ts highlight=3-5 nonumber
+interface Assertions {
+	toBe(expected: unknown): void
+	rejects: {
+		toThrow(expected: Error): Promise<void>
+	}
+}
+```
 
 > Note that the `.rejects.toThrow()` assertion will be returning a Promise. Annotate its return type accordingly (`Promise<void>`).
 
 Next, I extend the object returned from the `globalThis.expect` function to have the `rejects` property. In that property, I define a new `toThrow` function.
 
-<CodeFile file="setup.ts" range="15-23" highlight="22-23" />
+```ts filename=setup.ts highlight=8-9 nonumber
+globalThis.expect = function (actual: unknown) {
+	return {
+		toBe(expected: unknown) {
+			if (actual !== expected) {
+				throw new Error(`Expected ${actual} to equal to ${expected}`)
+			}
+		},
+		rejects: {
+			toThrow(expected) {
+```
 
 Although the `actual` value will be a Promise in our case, we can pass _anything_ to the `expect()` function. If we assume it's a Promise, and write `actual.catch()`, TypeScript will kindly warn us that `actual` is `unknown`, and it doesn't necessarily have the `.then()`/`.catch()` methods a Promise has.
 
 I make sure that the passed `actual` value is the instance of Promise:
 
-<CodeFile file="setup.ts" range="22-26" highlight="24-26" />
+```ts filename=setup.ts highlight=3-5 nonumber
+		rejects: {
+			toThrow(expected) {
+				if (!(actual instanceof Promise)) {
+					throw new Error(`Expected ${actual} to be a promise`)
+				}
+```
 
 Now that we are always asserting on a Promise, I will make sure it rejects, and compare the expected and the actual error messages once it does.
 
@@ -47,13 +70,39 @@ return actual.then(onFulfilled, onRejected)
 
 The `onFulfilled` function will be executed when the `actual` promise resolves, and I will throw an error if that happens. The `onRejected` function will be the same we've provided to the `.catch()` method before.
 
-<CodeFile file="setup.ts" range="22-40" highlight="29-31" />
+```ts filename=setup.ts highlight=8-10 nonumber
+		rejects: {
+			toThrow(expected) {
+				if (!(actual instanceof Promise)) {
+					throw new Error(`Expected ${actual} to be a promise`)
+				}
+
+				return actual.then(
+					() => {
+						throw new Error(`Expected ${actual} to reject but it didn't`)
+					},
+					error => {
+						if (error.message !== expected.message) {
+							throw new Error(
+								`Expected ${error.message} to equal to ${expected.message}`,
+							)
+						}
+					},
+				)
+			},
+```
 
 > Using a single `.then()` callback allow me to handle the promise fulfillment/rejection _without introducing a chain_. You can learn more about why this is important in [this issue](https://github.com/epicweb-dev/testing-fundamentals/issues/17).
 
 Finally, I change the test case to use the newly created `.rejects.toThrow()` assertion and provide the expected error:
 
-<CodeFile file="greet.test.ts" range="24-28" highlight="25-27" />
+```ts filename=greet.test.ts highlight=2-4 nonumber
+test('throws on greeting user with undefined user response', async () => {
+	await expect(greetByResponse(undefined)).rejects.toThrow(
+		new Error('Failed to greet the user: no user response provided'),
+	)
+})
+```
 
 <callout-info>Notice that we have to `await` the `expect()` call because the `.toThrow()` function returns a promise.</callout-info>
 

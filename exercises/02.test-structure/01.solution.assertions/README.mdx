@@ -4,11 +4,24 @@
 
 First, I will move the existing `if` logic for assertions into the new `toBe` function returned from the `expect`.
 
-<CodeFile file="greet.ts" range="12-20" highlight="15-17" />
+```ts filename=greet.ts highlight=3-7 nonumber
+function expect(actual: unknown) {
+	return {
+		toBe(expected: unknown) {
+			if (actual !== expected) {
+				throw new Error(`Expected ${actual} to equal to ${expected}`)
+			}
+		},
+	}
+}
+```
 
 Then, refactor the existing tests to use the new `expect` function.
 
-<CodeFile file="greet.ts" range="9-10" />
+```ts filename=greet.ts nonumber
+expect(greet('John')).toBe('Hello, John!')
+expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
+```
 
 Notice how much more human-friendly those assertions have become! Although a test is code that verifies another code, we still write them for ourselves and for our colleagues. We still write tests for humans. Preferring a more declarative style while doing so, such as our `expect` function, is one way to make sure those humans can get around faster and tackle failing tests more efficiently.
 

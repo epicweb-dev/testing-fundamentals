@@ -4,7 +4,15 @@
 
 I start by creating a new `greet.test.ts` file and moving only the `test(...)` blocks there.
 
-<CodeFile file="greet.test.ts" range="3-9" />
+```ts filename=greet.test.ts nonumber
+test('returns a greeting message for the given name', () => {
+	expect(greet('John')).toBe('Hello, John!')
+})
+
+test('returns a congratulation message for the given name', () => {
+	expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
+})
+```
 
 <callout-info>Which suffix to use: `.spec.ts` or `.test.ts`, or both?</callout-info>
 
@@ -12,21 +20,60 @@ If I try to run test test file now, it will exit on undefined `greet()` and `con
 
 So I go and export those functions from the `greet.ts` module:
 
-<CodeFile file="greet.ts" range="1-7" highlight="1,5" />
+```ts filename=greet.ts highlight=1,5
+export function greet(name: string) {
+	return `Hello, ${name}!`
+}
+
+export function congratulate(name: string) {
+	return `Congrats, ${name}!`
+}
+```
 
 And import them in the test file:
 
-<CodeFile file="greet.test.ts" range="1-9" highlight="1" />
+```ts filename=greet.test.ts add=1
+import { greet, congratulate } from './greet.js'
+```
 
 Next, I want to make the `test()` and `expect()` functions available _globally_. Every test will be using those, so there's no need to explicitly import them every time.
 
 Next, I create a `setup.ts` file where I start by describing the `test()` and `expect()` functions in TypeScript. I add them to the `global` namespace to let TypeScript know those functions will be available globally, and that we don't have to import them.
 
-<CodeFile file="setup.ts" range="1-8" highlight="5-8" />
+```ts filename=setup.ts highlight=5-8 nonumber
+interface Assertions {
+	toBe(expected: unknown): void
+}
+
+declare global {
+	var expect: (actual: unknown) => Assertions
+	var test: (title: string, callback: () => void) => void
+}
+```
 
 Then, I move the existing `test()` and `expect()` functions directly to the `globalThis` object to expose them globally on _runtime_ and also benefit from the type inference since they are now fully annotated!
 
-<CodeFile file="setup.ts" range="10-29" highlight="10,20" />
+```ts filename=setup.ts highlight=1,11 nonumber
+globalThis.expect = function (actual) {
+	return {
+		toBe(expected: unknown) {
+			if (actual !== expected) {
+				throw new Error(`Expected ${actual} to equal to ${expected}`)
+			}
+		},
+	}
+}
+
+globalThis.test = function (title, callback) {
+	try {
+		callback()
+		console.log(`✓ ${title}`)
+	} catch (error) {
+		console.error(`✗ ${title}`)
+		console.error(error, '\n')
+	}
+}
+```
 
 All that remains is to verify that the tests are running correctly.
 

@@ -4,11 +4,29 @@
 
 I start with defining the `title` and `callback` arguments on the `test()` function. Those will represent the _test's title_ and the _test itself_, respectively. Next, I invoke the `callback()` function, which will run whichever test we provide. Since failed assertions throw errors, I wrap the `callback()` in a `try/catch` block to prevent the process from exiting on failed assertions and also to print those nicely in the terminal's output.
 
-<CodeFile file="greet.ts" range="27-35" highlight="28,31" />
+```ts filename=greet.ts highlight=2,5 nonumber
+function test(title: string, callback: () => void) {
+	try {
+		callback()
+		console.log(`✓ ${title}`)
+	} catch (error) {
+		console.error(`✗ ${title}`)
+		console.error(error, '\n')
+	}
+}
+```
 
 Then, I wrap our existing tests in the `test()` function, giving it a meaningful title so the expectation behind each test is clear.
 
-<CodeFile file="greet.ts" range="9-15" highlight="9,13" />
+```ts filename=greet.ts highlight=1,5 nonumber
+test('returns a greeting message for the given name', () => {
+	expect(greet('John')).toBe('Hello, John!')
+})
+
+test('returns a congratulation message for the given name', () => {
+	expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
+})
+```
 
 Now, whenever a test fails, we can immediately see its title and the relevant assertion error below.
 

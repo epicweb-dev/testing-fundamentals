@@ -4,26 +4,59 @@
 
 First, I add the `beforeAll()` and `afterAll()` function declarations to the `global` namespace in TypeScript:
 
-<CodeFile file="setup.ts" range="1-10" highlight="8-9" />
+```ts filename=setup.ts highlight=8-9 nonumber
+interface Assertions {
+	toBe(expected: unknown): void
+}
+
+declare global {
+	var expect: (actual: unknown) => Assertions
+	var test: (title: string, callback: () => void) => void
+	var beforeAll: (callback: () => void) => void
+	var afterAll: (callback: () => void) => void
+}
+```
 
 Then, I implement the `beforeAll()` function, which invokes the given `callback` immediately.
 
-<CodeFile file="setup.ts" range="32-34" highlight="33" />
+```ts filename=setup.ts highlight=2 nonumber
+globalThis.beforeAll = function (callback) {
+	callback()
+}
+```
 
 <callout-warning>Here, I'm relying on the fact that the `beforeAll()` function will be called _before_ any individual tests. Actual testing frameworks usually have a runner responsible for internally orchestrating hooks and tests regardless of the invocation order.</callout-warning>
 
 The `afterAll` function will be a bit different. To invoke the `callback` once the tests are done, I will utilize the `beforeExit` event of a Node.js process to let me know when the test run is about to exit.
 
-<CodeFile file="setup.ts" range="36-40" highlight="37-39" />
+```ts filename=setup.ts highlight=2-4 nonumber
+globalThis.afterAll = function (callback) {
+	process.on('beforeExit', () => {
+		callback()
+	})
+}
+```
 
 Then, I go to the `greet.test.ts` and add the `beforeAll()` hook that patches the global `Date` constructor and uses the stored `OriginalDate` class to create a fixed date.
 
-<CodeFile file="greet.test.ts" range="3-9" highlight="3,6-8" />
+```ts filename=greet.test.ts highlight=1,4-6 nonumber
+const OriginalDate = globalThis.Date
+
+beforeAll(() => {
+	globalThis.Date = new Proxy(globalThis.Date, {
+		construct: () => new OriginalDate('2024-01-01'),
+	})
+})
+```
 
 <callout-warning>I recommend providing an entire UTC date, including an explicit timezone, as the value of the mocked date to have a resilient test setup: `new OriginalDate('2024-01-01 00:00:00.000Z')`</callout-warning>
 
 Similarly, I make sure to clean up this `Date` mock in the `afterAll()` hook:
 
-<CodeFile file="greet.test.ts" range="11-13" highlight="12" />
+```ts filename=greet.test.ts highlight=2 nonumber
+afterAll(() => {
+	globalThis.Date = OriginalDate
+})
+```
 
 <callout-success>Remember the rule of clean hooks: have a cleanup for each side effect in your setup (e.g. spawn a server → close the server; patch a global → restore the global).</callout-success>

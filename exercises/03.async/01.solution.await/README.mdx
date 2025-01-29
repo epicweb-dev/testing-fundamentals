@@ -4,15 +4,35 @@
 
 I will start by making the `test()` function in `setup.ts` asynchronous.
 
-<CodeFile file="setup.ts" range="22" highlight="22" />
+```ts filename=setup.ts remove=1 add=2 nonumber
+globalThis.test = function (title, callback) {
+globalThis.test = async function (title, callback) {
+```
 
 This will allow me to await the `callback()` if it happens to be `async` too.
 
-<CodeFile file="setup.ts" range="22-26" highlight="24" />
+```ts filename=setup.ts highlight=3 nonumber
+globalThis.test = async function (title, callback) {
+	try {
+		await callback()
+		console.log(`✓ ${title}`)
+	} catch (error) {
+		console.error(`✗ ${title}`)
+		console.error(error, '\n')
+	}
+}
+```
 
 <callout-info>To let TypeScript know that `callback` is now, potentially, an asynchronous function, I will adjust its return type to include `Promise<void>`:</callout-info>
 
-<CodeFile file="setup.ts" range="5-10" highlight="7" />
+```ts filename=setup.ts highlight=3 nonumber
+declare global {
+	var expect: (actual: unknown) => Assertions
+	var test: (title: string, callback: () => void | Promise<void>) => void
+	var beforeAll: (callback: () => void) => void
+	var afterAll: (callback: () => void) => void
+}
+```
 
 If I run the tests now, I can correctly see the assertion on `greetByResponse()` failing the relevant test:
 

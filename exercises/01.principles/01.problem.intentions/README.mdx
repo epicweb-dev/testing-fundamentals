@@ -4,7 +4,11 @@
 
 You have a `greet` function that should greet the user by their name. That's the _intention_ behind it. And here's its implementation:
 
-<CodeFile file="greet.ts" nocopy />
+```ts filename=greet.js nocopy nonumber
+function greet(name: string) {
+	return `Hello, ${name}!`
+}
+```
 
 👨‍💼 Now your job is to add an automated test for the <code>greet</code> function
 (you can put it in the same <code>greet.ts</code> file) so you can run <code>npx tsx
@@ -13,7 +17,7 @@ intended.
 
 As a reminder, this is what any automated test comes down to:
 
-```js
+```ts
 // Run the code and get the *actual* result.
 let result = code(...args)
 
