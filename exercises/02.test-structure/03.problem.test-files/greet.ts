@@ -22,7 +22,7 @@ test('returns a congratulation message for the given name', () => {
 })
 
 // 🐨 Move the existing "expect()" and "test()" functions to the
-// newly added "setup.js" file.
+// newly added "setup.ts" file.
 function expect(actual: unknown) {
 	return {
 		toBe(expected: unknown) {
