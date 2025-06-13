@@ -11,7 +11,7 @@ function congratulate(name: string) {
 }
 
 // 🐨 Move the existing tests for "greet()" and "congratulate()"
-// to the newly added "greet.test.js" file. Don't forget to
+// to the newly added "greet.test.ts" file. Don't forget to
 // import the "greet()" and "congratulate()" functions there!
 test('returns a greeting message for the given name', () => {
 	expect(greet('John')).toBe('Hello, John!')
