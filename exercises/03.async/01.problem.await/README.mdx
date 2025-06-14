@@ -14,7 +14,7 @@ export async function greetByResponse(response: Response) {
 So now, whenever we need to greet a fetched user, we can use this new function:
 
 ```ts nocopy nonumber
-fecth('/api/user')
+fetch('/api/user')
 	.then(response => greetByResponse(response))
 	.then(greeting => render(greeting))
 ```
