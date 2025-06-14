@@ -34,6 +34,6 @@ if (message !== 'Congrats, Sarah!') {
 // return { toBe(expected) {} }
 
 // 🐨 In the "toBe" function, compare the "actual" and the "expected"
-// values, and throw an error if they don't mtach.
+// values, and throw an error if they don't match.
 // 💰 You can throw an error like this one:
 // new Error(`Expected ${actual} to equal to ${expected}`)
