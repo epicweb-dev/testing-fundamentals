@@ -1,7 +1,8 @@
 {
   "type": "module",
   "dependencies": {
-    "@epic-web/workshop-app": "^5.29.0",
-    "@epic-web/workshop-utils": "^5.29.0"
+    "@epic-web/workshop-app": "^6.2.0",
+    "@epic-web/workshop-utils": "^6.2.0",
+    "@epic-web/workshop-cli": "^6.2.0"
   }
 }
