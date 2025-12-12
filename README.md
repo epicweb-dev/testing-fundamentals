@@ -67,12 +67,10 @@ variable and how to fix it here for [windows][win-path] or
 
 ## Setup
 
-Follow these steps to get this set up:
+Use the Epic Workshop CLI to get this setup:
 
 ```sh nonumber
-git clone --depth 1 https://github.com/epicweb-dev/testing-fundamentals.git
-cd testing-fundamentals
-npm run setup
+npx epicshop@latest add testing-fundamentals
 ```
 
 If you experience errors here, please open [an issue][issue] with as many
