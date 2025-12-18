@@ -1,8 +1,8 @@
 {
   "type": "module",
   "dependencies": {
-    "@epic-web/workshop-app": "^6.47.9",
-    "@epic-web/workshop-utils": "^6.47.9",
-    "epicshop": "^6.47.9"
+    "@epic-web/workshop-app": "^6.47.10",
+    "@epic-web/workshop-utils": "^6.47.10",
+    "epicshop": "^6.47.10"
   }
 }
